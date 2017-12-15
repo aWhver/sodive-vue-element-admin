@@ -1,0 +1,10 @@
+.main-wrapper {
+  margin-left: 200px;
+  transition: margin-left 0.3s linear;
+}
+.el-menu-horizontal {
+  padding: 10px 20px;
+}
+a {
+  text-decoration: none;
+}
