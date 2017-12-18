@@ -69,7 +69,7 @@ export const constantRouterMap = [
       }
     ]
   },
-  {path: '/order', component: _import('order/index'), meta: {title: '兑换券订单管理', icon: 'dingdan'}},
+  {path: '/order', name: 'order', component: _import('order/index'), meta: {title: '兑换券订单管理', icon: 'dingdan'}},
   {
     path: '/exchange',
     name: 'exchange',

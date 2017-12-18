@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <SideBar></SideBar>
-    <div class="main-wrapper" :style="{'margin-left':  isCollapse? '56px' : '200px'}">
+    <div class="main-wrapper" :style="{'margin-left':  isCollapse? '64px' : '200px'}">
       <div class="el-menu-horizontal">
         <Hamburger></Hamburger>
         <BreakCrumb></BreakCrumb>
@@ -9,7 +9,6 @@
       <tag-views></tag-views>
       <router-view/>
     </div>
-
   </div>
 </template>
 

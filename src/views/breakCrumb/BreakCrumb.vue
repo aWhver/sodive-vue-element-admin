@@ -1,6 +1,6 @@
 <template>
   <div class="breakCrumb-container">
-    <el-breadcrumb separator="/">
+    <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item v-for="(item, index) in routerList" :key="item.path">
         <router-link v-if="index !== 0 || index !== routerList.length-1" :to="item.path">{{  item.meta.title }} </router-link>
         <span v-else>{{  item.meta.title }}</span>
@@ -22,7 +22,6 @@
       getBreakCrumb () {
         // console.log(this.$route)
         let matched = this.$route.matched.filter(item => item.name)
-        console.log(matched)
         const first = matched[0]
         if (first && first.name !== 'index') {
           matched = [{path: '/', meta: {title: '首页'}}].concat(matched)

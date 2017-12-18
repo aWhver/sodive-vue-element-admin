@@ -45,6 +45,7 @@
     height: 100%;
     background: #304156;
     transition: all 0.5s ease-out;
+    z-index: 99;
     .el-menu {
       background: #304156;
       border: none;
