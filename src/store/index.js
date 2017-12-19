@@ -5,6 +5,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { constantRouterMap } from '../router/index'
 import routeTag from './modules/routeTag'
+import getters from './getters'
 
 Vue.use(Vuex)
 
@@ -12,9 +13,11 @@ const store = new Vuex.Store({
   modules: {
     routeTag
   },
+  getters,
   state: {
     constantRouterMap: constantRouterMap,
-    isCollapse: false
+    isCollapse: false,
+    isLogin: false
   },
   mutations: {
     openSideBar (state) {

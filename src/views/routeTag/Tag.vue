@@ -1,7 +1,7 @@
 <template>
   <div class="tag-views-container">
-    <scrollPane>
-      <router-link v-for="route in visitedTags" :class="isActive(route)? 'active' : ''" v-if="visitedTags.length !== 0" :to="route.path" :key="route.name" @contextmenu.prevent.native="openMenu(route, $event)">
+    <scrollPane ref="scrollPane">
+      <router-link v-for="route in visitedTags" :class="isActive(route)? 'active' : ''" ref="tag" v-if="visitedTags.length !== 0" :to="route.path" :key="route.name" @contextmenu.prevent.native="openMenu(route, $event)">
         <el-tag :disable-transitions="false" closable @close.prevent.stop="closeTag(route)">{{route.title}}</el-tag>
       </router-link>
     </scrollPane>
@@ -72,6 +72,17 @@
       },
       closeMenu () {
         this.visible = false
+      },
+      moveToCurrentTag () {
+        const tags = this.$refs.tag
+        this.$nextTick(() => {
+          for (const tag of tags) {
+            if (tag.to === this.$route.path) {
+              this.$refs.scrollPane.moveToTarget(tag.$el)
+              break
+            }
+          }
+        })
       }
     },
     mounted () {
@@ -80,6 +91,7 @@
     watch: {
       $route () {
         this.addTags()
+        this.moveToCurrentTag()
       },
       visible (value) {
         if (value) {

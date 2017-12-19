@@ -1,13 +1,16 @@
 <template>
   <div id="app">
-    <SideBar></SideBar>
-    <div class="main-wrapper" :style="{'margin-left':  isCollapse? '64px' : '200px'}">
-      <div class="el-menu-horizontal">
-        <Hamburger></Hamburger>
-        <BreakCrumb></BreakCrumb>
+    <router-view v-if="isLogin"/>
+    <div v-else>
+      <SideBar></SideBar>
+      <div class="main-wrapper" :style="{'margin-left':  isCollapse? '64px' : '200px'}">
+        <div class="el-menu-horizontal">
+          <Hamburger></Hamburger>
+          <BreakCrumb></BreakCrumb>
+        </div>
+        <tag-views></tag-views>
+        <router-view/>
       </div>
-      <tag-views></tag-views>
-      <router-view/>
     </div>
   </div>
 </template>
@@ -28,7 +31,8 @@ export default {
   },
   computed: {
     ...mapState([
-      'isCollapse'
+      'isCollapse',
+      'isLogin'
     ])
   }
 }

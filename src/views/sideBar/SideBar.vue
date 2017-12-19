@@ -1,5 +1,5 @@
 <template>
-  <div class="sideBar" :style="{width: !isCollapse? '200px' : '64px'}">
+  <scrollBar>
     <el-menu :default-active="$route.path" class="el-menu-vertical-demo" :collapse="isCollapse">
       <template v-for="item in constantRouterMap" v-if="!item.hidden">
         <router-link v-if="!item.children" :to="item.path"  :key="item.name" :class="{'noDropdown': isCollapse}">
@@ -25,10 +25,11 @@
         </el-submenu>
       </template>
     </el-menu>
-  </div>
+  </scrollBar>
 </template>
 <script>
   import { mapState } from 'vuex'
+  import scrollBar from 'views/scrollBar/scrollBar'
   export default {
     name: 'SideBar',
     computed: {
@@ -36,38 +37,32 @@
         'constantRouterMap',
         'isCollapse'
       ])
-    }
+    },
+    components: { scrollBar }
   }
 </script>
 <style rel="stylesheet/less" lang="less" scoped>
-  .sideBar {
-    position: fixed;
-    height: 100%;
+  .el-menu {
     background: #304156;
-    transition: all 0.5s ease-out;
-    z-index: 99;
-    .el-menu {
-      background: #304156;
-      border: none;
-    }
-    .el-menu-item,.el-submenu__title span {color: #fff;}
-    .el-submenu .el-menu-item[data-v-614c2078] {
-      background: #1f2d3d;
-    }
-    .noDropdown span {
-      height: 0;
-      width: 0;
-      overflow: hidden;
-      visibility: hidden;
-      transition: opacity .5s ease-out;
-      opacity: 0;
-      display: inline-block;
-    }
-    .el-menu-item:focus, .el-menu-item:hover {
-      background: #263445;
-    }
-    .el-submenu .el-menu-item[data-v-614c2078][data-v-614c2078]:hover {
-      background: #001528;
-    }
+    border: none;
+  }
+  .el-menu-item,.el-submenu__title span {color: #fff;}
+  .el-submenu .el-menu-item[data-v-614c2078] {
+    background: #1f2d3d;
+  }
+  .noDropdown span {
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: opacity .5s ease-out;
+    opacity: 0;
+    display: inline-block;
+  }
+  .el-menu-item:focus, .el-menu-item:hover {
+    background: #263445;
+  }
+  .el-submenu .el-menu-item[data-v-614c2078][data-v-614c2078]:hover {
+    background: #001528;
   }
 </style>
