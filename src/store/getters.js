@@ -3,5 +3,8 @@
  */
 export default {
   visitedTags: state => state.routeTag.visitedTags,
-  permissonRoute: state => state.permission.constantRouterMap
+  permissionRoute: state => state.permission.constantRouterMap,
+  token: state => state.user.token,
+  name: state => state.user.name,
+  roles: state => state.user.roles
 }

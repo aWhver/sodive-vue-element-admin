@@ -17,7 +17,7 @@ const store = new Vuex.Store({
   state: {
     constantRouterMap: constantRouterMap,
     isCollapse: false,
-    isLogin: false
+    isLogin: true
   },
   mutations: {
     openSideBar (state) {

@@ -7,6 +7,7 @@ import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './icons/index'
 import store from './store/index'
+import './mock'
 
 Vue.use(Element)
 
