@@ -33,8 +33,8 @@
       }
       return {
         loginForm: {
-          username: '',
-          password: ''
+          username: 'admin',
+          password: 'zhanjuntong'
         },
         loginRules: {
           username: [{required: true, trigger: blur, validator: validateUsername}],

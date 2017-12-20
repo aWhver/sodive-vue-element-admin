@@ -14,7 +14,7 @@ const service = axios.create({
 // request拦截请求
 service.interceptors.request.use(config => {
   if (store.getters.token) {
-    config.headers['X-Token'] = getToken() // 请求携带token
+    config.headers['X-Token'] = getToken() // 请求携带token X-Token为自定义的key
   }
   return config
 }, error => {
@@ -24,26 +24,22 @@ service.interceptors.request.use(config => {
 // response 拦截
 service.interceptors.response.use(response => {
   const res = response.data
-  if (res.code !== 20000) {
-    Message({
-      message: res.data,
-      type: 'error',
-      duration: 5000
-    })
+  if (res.code !== 0) { // 不为0为异常状态码
+    // 0:token 过期;  1:token(用户名) 不合法
+    const promptMap = ['你已被登出,令牌失效', '你已被登出,用户名错误']
 
-    // 50008:非法的token; 50012:其他客户端登录了;  50014:Token 过期了
-    if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
-      MessageBox.confirm('你已被登出,或在其他客户端登录,或者重新登陆', '确定登出', {
-        confirmButtonText: '重新登录',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        console.log(1) // TODO
+    MessageBox.confirm(promptMap[res.code], {
+      confirmButtonText: '重新登录',
+      cancelButtonText: '取消',
+      type: 'warning'
+    }).then(() => {
+      store.dispatch('Logout').then(() => {
+        location.reload() // 重新实例化vue-router对象,避免bug
       })
-    }
+    })
     return Promise.resolve('error')
   } else {
-    return res
+    return response
   }
 }, error => {
   Message({

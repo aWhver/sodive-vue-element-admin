@@ -6,13 +6,13 @@ import Cookies from 'js-cookie'
 const TokenKey = 'Admin-Token'
 
 export function getToken () {
-  return Cookies.get(TokenKey)
+  return arguments.length === 0 ? Cookies.get(TokenKey) : Cookies.get(arguments[0])
 }
 
-export function setToken (token) {
-  return Cookies.set(TokenKey, token)
+export function setToken () {
+  return arguments.length === 1 ? Cookies.set(TokenKey, arguments[0], {expires: 7}) : Cookies.set(arguments[1], arguments[0], {expires: 7})
 }
 
 export function removeToken () {
-  return Cookies.remove(TokenKey)
+  return arguments.length === 0 ? Cookies.remove(TokenKey) : Cookies.remove(arguments[0])
 }
