@@ -3,10 +3,10 @@
  */
 import request from 'utils/request'
 
-export function login(username, password) {
+export function login (username, password) {
   return request({
-    url: '/login/login',
-    methods: 'post',
+    url: '/user/login',
+    method: 'post',
     data: {
       user: username,
       password: password

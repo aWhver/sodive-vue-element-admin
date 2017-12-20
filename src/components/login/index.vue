@@ -1,11 +1,11 @@
 <template>
   <div class="login">
-    <el-form ref="from" :model="form" label-width="80px">
+    <el-form ref="loginForm" :model="loginForm" label-width="80px" :rules="loginRules">
       <el-form-item label="账号">
-        <el-input v-model="form.username"></el-input>
+        <el-input v-model="loginForm.username"></el-input>
       </el-form-item>
       <el-form-item label="密码">
-        <el-input v-model="form.password" type="password"></el-input>
+        <el-input v-model="loginForm.password" type="password"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="login()">登录</el-button>
@@ -14,17 +14,44 @@
   </div>
 </template>
 <script>
+  import { isValidUsername } from 'utils/validate'
   export default {
     data () {
+      const validateUsername = function (rule, value, cb) {
+        if (isValidUsername(value)) {
+          cb(new Error('用户名不正确'))
+        } else {
+          cb()
+        }
+      }
+      const validatePassword = function (rule, value, cb) {
+        if (value.length < 6) {
+          cb(new Error('长度需大于等于6位'))
+        } else {
+          cb()
+        }
+      }
       return {
-        form: {
+        loginForm: {
           username: '',
           password: ''
+        },
+        loginRules: {
+          username: [{required: true, trigger: blur, validator: validateUsername}],
+          password: [{required: true, trigger: blur, validator: validatePassword}]
         }
       }
     },
     methods: {
-      login () {}
+      login () {
+        this.$refs.loginForm.validate(valid => {
+          if (valid) {
+            this.$store.dispatch('Login', this.loginForm).then(() => {
+              console.log(1)
+            })
+          }
+        })
+      }
     }
   }
 </script>
