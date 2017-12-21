@@ -28,14 +28,16 @@
   </scrollBar>
 </template>
 <script>
-  import { mapState } from 'vuex'
+  import { mapState, mapGetters } from 'vuex'
   import scrollBar from 'views/scrollBar/scrollBar'
   export default {
     name: 'SideBar',
     computed: {
       ...mapState([
-        'permissionRoutes',
         'isCollapse'
+      ]),
+      ...mapGetters([
+        'permissionRoutes'
       ])
     },
     components: { scrollBar }

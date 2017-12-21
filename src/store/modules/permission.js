@@ -8,26 +8,31 @@ import { constantRouterMap, asyncRouterMap } from 'router'
  * @param roles
  * @param route
  */
-/* function hasPermission (roles, route) {
+function hasPermission (roles, route) {
   if (route.meta && route.meta.role) {
     return roles.some(role => route.meta.role.indexOf(role) >= 0)
   } else {
     return true
   }
-} */
+}
 
 /**
  * 异步过滤权限路由
  * @param asyncRouterMap
  * @param roles
  */
-/* function filterAsyncRouterMap (asyncRouterMap, roles) {
+function filterAsyncRouterMap (asyncRouterMap, roles) {
   const accessedRoutes = asyncRouterMap.filter(route => {
     if (hasPermission(roles, route)) {
-      if (route.children )
+      if (route.children) {
+        route.children = filterAsyncRouterMap(route.children, roles)
+      }
+      return true
     }
+    return false
   })
-} */
+  return accessedRoutes
+}
 
 export default {
   state: {
@@ -41,9 +46,15 @@ export default {
     }
   },
   actions: {
-    GenerateRoutes ({ commit }) {
+    GenerateRoutes ({ commit }, roles) {
       return new Promise(resolve => {
-        commit('SET_ROUTERS', asyncRouterMap)
+        let accessedRouters
+        if (roles.indexOf('admin') >= 0) {
+          accessedRouters = asyncRouterMap
+        } else {
+          accessedRouters = filterAsyncRouterMap(asyncRouterMap, roles)
+        }
+        commit('SET_ROUTERS', accessedRouters)
         resolve()
       })
     }

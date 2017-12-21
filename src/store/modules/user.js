@@ -1,7 +1,7 @@
 /**
  * Created by zhaojuntong on 2017/12/19.
  */
-import { login } from 'api/login'
+import { login, getUserInfo } from 'api/login'
 import { getToken, setToken, removeToken } from 'utils/auth'
 export default {
   state: {
@@ -41,6 +41,20 @@ export default {
             setToken(data.token)
           }
           resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    GetUserInfo ({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        getUserInfo(state.token).then(response => {
+          const data = response.data
+          commit('SET_ROLES', data.roles)
+          commit('SET_NAME', data.name)
+          commit('SET_AVATAR', data.avatar)
+          commit('SET_INTRODUCTION', data.introduction)
+          resolve(data)
         }).catch(error => {
           reject(error)
         })

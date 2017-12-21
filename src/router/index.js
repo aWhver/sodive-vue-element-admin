@@ -20,6 +20,11 @@ export const constantRouterMap = [
   { path: '/404', component: _import('errorPage/404'), hidden: true }
 ]
 
+export default new Router({
+  scrollBehavior: () => ({ y: 0 }),
+  routes: constantRouterMap
+})
+
 export const asyncRouterMap = [
   {
     path: '/',
@@ -225,10 +230,6 @@ export const asyncRouterMap = [
         meta: {title: 'App版本管理'}
       }
     ]
-  }
+  },
+  {path: '*', component: _import('errorPage/404'), hidden: true}
 ]
-
-export default new Router({
-  scrollBehavior: () => ({ y: 0 }),
-  routes: constantRouterMap
-})

@@ -1,10 +1,11 @@
 /**
  * Created by zhaojuntong on 2017/12/19.
  */
+import { paramObj } from 'utils/index'
 import { getToken } from 'utils/auth'
 const userInfo = {
   'admin': {
-    role: ['admin'],
+    roles: ['admin'],
     token: 'admin',
     introduction: '超级管理员',
     name: 'zhaojuntong',
@@ -26,6 +27,22 @@ export default {
     return {
       ...userInfo[username],
       code
+    }
+  },
+  getUserInfo: config => {
+    const { token } = paramObj(config.url)
+    let code
+    if (userInfo[token]) {
+      code = 2
+      return {
+        ...userInfo[token],
+        code
+      }
+    } else {
+      code = 1
+      return {
+        code
+      }
     }
   }
 }

@@ -13,3 +13,11 @@ export function login (username, password) {
     }
   })
 }
+
+export function getUserInfo (token) {
+  return request({
+    url: '/user/userInfo',
+    method: 'post',
+    params: { token }
+  })
+}
