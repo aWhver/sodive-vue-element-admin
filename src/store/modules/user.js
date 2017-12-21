@@ -51,6 +51,7 @@ export default {
         commit('SET_TOKEN', '')
         removeToken()
         removeToken('Expires-Token')
+        localStorage.removeItem('isLogin')
         resolve()
       })
     }

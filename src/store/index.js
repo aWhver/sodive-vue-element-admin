@@ -3,27 +3,39 @@
  */
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { constantRouterMap } from '../router/index'
 import getters from './getters'
 import routeTag from './modules/routeTag'
 import user from './modules/user'
+import permission from './modules/permission'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   modules: {
     routeTag,
-    user
+    user,
+    permission
   },
   getters,
   state: {
-    constantRouterMap: constantRouterMap,
     isCollapse: false,
     isLogin: true
   },
   mutations: {
     openSideBar (state) {
       state.isCollapse = !state.isCollapse
+    },
+    HIDE_LOGIN (state, login) {
+      state.isLogin = login
+      window.localStorage.setItem('isLogin', login)
+    }
+  },
+  actions: {
+    hideLogin ({ commit }, login) {
+      return new Promise(resolve => {
+        commit('HIDE_LOGIN', login)
+        resolve()
+      })
     }
   }
 })

@@ -47,7 +47,10 @@
         this.$refs.loginForm.validate(valid => {
           if (valid) {
             this.$store.dispatch('Login', this.loginForm).then(() => {
-              console.log(1)
+              this.$store.dispatch('hideLogin', false).then(() => {
+                console.log(2)
+                this.$router.push({path: '/'})
+              })
             })
           }
         })

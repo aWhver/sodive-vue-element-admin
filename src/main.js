@@ -8,7 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './icons/index'
 import store from './store/index'
 import './mock'
-// import './permission'
+import './permission'
 
 Vue.use(Element)
 

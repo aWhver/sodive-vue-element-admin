@@ -1,7 +1,7 @@
 <template>
   <scrollBar>
     <el-menu :default-active="$route.path" class="el-menu-vertical-demo" :collapse="isCollapse">
-      <template v-for="item in constantRouterMap" v-if="!item.hidden">
+      <template v-for="item in permissionRoutes" v-if="!item.hidden">
         <router-link v-if="!item.children" :to="item.path"  :key="item.name" :class="{'noDropdown': isCollapse}">
           <el-menu-item :index="item.path">
             <svg-icon v-if="item.meta&&item.meta.icon"  :icon-class="item.meta.icon"></svg-icon>
@@ -34,7 +34,7 @@
     name: 'SideBar',
     computed: {
       ...mapState([
-        'constantRouterMap',
+        'permissionRoutes',
         'isCollapse'
       ])
     },

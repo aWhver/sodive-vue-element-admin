@@ -24,13 +24,13 @@ service.interceptors.request.use(config => {
 // response 拦截
 service.interceptors.response.use(response => {
   const res = response.data
-  if (res.code !== 0) { // 不为0为异常状态码
+  if (res.code !== 2) { // 不为2为异常状态码
     // 0:token 过期;  1:token(用户名) 不合法
     const promptMap = ['你已被登出,令牌失效', '你已被登出,用户名错误']
 
     MessageBox.confirm(promptMap[res.code], {
       confirmButtonText: '重新登录',
-      cancelButtonText: '取消',
+      // cancelButtonText: '取消',
       type: 'warning'
     }).then(() => {
       store.dispatch('Logout').then(() => {
