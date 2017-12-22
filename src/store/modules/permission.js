@@ -17,7 +17,7 @@ function hasPermission (roles, route) {
 }
 
 /**
- * 异步过滤权限路由
+ * 异步递归过滤权限路由
  * @param asyncRouterMap
  * @param roles
  */

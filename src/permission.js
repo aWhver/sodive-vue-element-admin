@@ -11,9 +11,8 @@ const whiteList = ['/login'] // 不重定向白名单
 router.beforeEach((to, from, next) => {
   if (getToken()) {
     if (to.path === '/login') {
-      store.dispatch('hideLogin', false).then(() => {
-        next({path: '/'})
-        console.log(3)
+      store.dispatch('hideLogin', true).then(() => {
+        next()
       })
     } else {
       if (localStorage.getItem('isLogin')) {
@@ -25,6 +24,7 @@ router.beforeEach((to, from, next) => {
                 router.addRoutes(store.getters.addRouters)
                 registerRouterFresh = false
               }
+              // location.reload()
               next()
             })
           })

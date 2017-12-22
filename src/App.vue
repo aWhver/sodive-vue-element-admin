@@ -9,7 +9,9 @@
           <BreakCrumb></BreakCrumb>
         </div>
         <tag-views></tag-views>
-        <router-view/>
+        <keep-alive>
+          <router-view/>
+        </keep-alive>
       </div>
     </div>
   </div>
