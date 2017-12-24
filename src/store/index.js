@@ -18,24 +18,11 @@ const store = new Vuex.Store({
   },
   getters,
   state: {
-    isCollapse: false,
-    isLogin: true
+    isCollapse: false
   },
   mutations: {
     openSideBar (state) {
       state.isCollapse = !state.isCollapse
-    },
-    HIDE_LOGIN (state, login) {
-      state.isLogin = login
-      window.localStorage.setItem('isLogin', login)
-    }
-  },
-  actions: {
-    hideLogin ({ commit }, login) {
-      return new Promise(resolve => {
-        commit('HIDE_LOGIN', login)
-        resolve()
-      })
     }
   }
 })

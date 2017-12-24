@@ -1,8 +1,9 @@
 <template>
-
+  <div>taskManage</div>
 </template>
 <script>
   export default {
+    name: 'taskManage',
     data () {
       return {}
     }

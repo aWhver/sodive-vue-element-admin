@@ -1,7 +1,7 @@
 <template>
   <div class="tag-views-container">
     <scrollPane ref="scrollPane">
-      <router-link v-for="route in Array.from(visitedTags)" :class="isActive(route)? 'active' : ''" ref="tag" v-if="visitedTags.length !== 0" :to="route.path" :key="route.name" @contextmenu.prevent.native="openMenu(route, $event)">
+      <router-link v-for="route in Array.from(visitedTags)" :class="isActive(route)? 'active' : ''" ref="tag" v-if="visitedTags.length !== 0" :to="route.path" :key="route.path" @contextmenu.prevent.native="openMenu(route, $event)">
         <el-tag :disable-transitions="false" closable @close.prevent.stop="closeTag(route)">{{route.title}}</el-tag>
       </router-link>
     </scrollPane>

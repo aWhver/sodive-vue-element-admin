@@ -1,8 +1,9 @@
 <template>
-
+  <div>discoverPending</div>
 </template>
 <script>
   export default {
+    name: 'discoverPending',
     data () {
       return {}
     }

@@ -20,7 +20,6 @@ export default {
     let code = 2 // the code express token is valid
     if (nowDate - ExpiresToken > 7 * 24 * 3600 * 1000) {
       code = 0 // the code express token is invalid
-      localStorage.removeItem('isLogin')
     } else if (username !== 'admin') {
       code = 1 // the code express token is wrong
     }

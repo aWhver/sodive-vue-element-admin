@@ -1,8 +1,9 @@
 <template>
-
+  <div>addItems</div>
 </template>
 <script>
   export default {
+    name: 'addItems',
     data () {
       return {}
     }

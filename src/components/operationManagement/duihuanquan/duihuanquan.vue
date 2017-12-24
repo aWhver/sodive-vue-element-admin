@@ -1,8 +1,9 @@
 <template>
-
+  <div>duihuanquan</div>
 </template>
 <script>
   export default {
+    name: 'duihuanquan',
     data () {
       return {}
     }

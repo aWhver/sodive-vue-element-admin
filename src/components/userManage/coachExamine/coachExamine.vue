@@ -1,8 +1,9 @@
 <template>
-
+  <div>coachExamine</div>
 </template>
 <script>
   export default {
+    name: 'coachExamine',
     data () {
       return {}
     }

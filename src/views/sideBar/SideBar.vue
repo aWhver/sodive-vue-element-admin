@@ -2,10 +2,10 @@
   <scrollBar>
     <el-menu :default-active="$route.path" class="el-menu-vertical-demo" :collapse="isCollapse">
       <template v-for="item in permissionRoutes" v-if="!item.hidden">
-        <router-link v-if="!item.children" :to="item.path"  :key="item.name" :class="{'noDropdown': isCollapse}">
-          <el-menu-item :index="item.path">
-            <svg-icon v-if="item.meta&&item.meta.icon"  :icon-class="item.meta.icon"></svg-icon>
-            <span>{{item.meta.title}}</span>
+        <router-link v-if="item.children && item.children.length === 1" :to="`${item.path}/${item.children[0].path}`"  :key="item.children[0].name" :class="{'noDropdown': isCollapse}">
+          <el-menu-item :index="item.children[0].path">
+            <svg-icon v-if="item.children[0].meta && item.children[0].meta.icon"  :icon-class="item.children[0].meta.icon"></svg-icon>
+            <span>{{item.children[0].meta.title}}</span>
           </el-menu-item>
         </router-link>
         <el-submenu v-else :index="item.path || item.name" :key="item.name">
@@ -14,11 +14,11 @@
             <span>{{item.meta.title}}</span>
           </template>
           <template v-for="child in item.children">
-            <side-bar v-if="child.children" :constantRouterMap="child" :key="child.path"></side-bar>
+            <side-bar v-if="child.children" :permissionRoutes="child" :key="child.path"></side-bar>
             <router-link v-else :to="`${item.path}/${child.path}`">
               <el-menu-item :index="child.path">
-                <svg-icon v-if="child.meta&&child.meta.icon" :icon-class="child.meta.icon"></svg-icon>
-                <span v-if="child.meta&&child.meta.title">{{child.meta.title}}</span>
+                <svg-icon v-if="child.meta && child.meta.icon" :icon-class="child.meta.icon"></svg-icon>
+                <span v-if="child.meta && child.meta.title">{{child.meta.title}}</span>
               </el-menu-item>
             </router-link>
           </template>
