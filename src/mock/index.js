@@ -10,5 +10,6 @@ Mock.mock(/\/user\/userInfo/, 'post', loginAPI.getUserInfo)
 
 // userManage
 Mock.mock(/\/userManage\/agentList/, 'get', getAgentListAPI.getAgentList)
+Mock.mock(/\/userManage\/addAgent/, 'get', getAgentListAPI.addAgent)
 
 export default Mock

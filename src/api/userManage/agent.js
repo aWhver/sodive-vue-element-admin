@@ -10,3 +10,16 @@ export function getAgentList (listQuery) {
     params: listQuery
   })
 }
+
+export function addAgent (agentId, countryName, email) {
+  const data = {
+    agentId: agentId,
+    countryName: countryName,
+    email: email
+  }
+  return request({
+    url: '/userManage/addAgent',
+    method: 'get',
+    data
+  })
+}
