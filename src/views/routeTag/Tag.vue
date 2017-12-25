@@ -109,7 +109,8 @@
 </script>
 <style lang="less">
 .tag-views-container{
-  .scroll-wrapper {height: 35px;}
+  .scroll-wrapper {height: 35px; border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  }
   a{
     margin: 0 5px;
     &.active .el-tag{

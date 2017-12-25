@@ -18,7 +18,7 @@ const store = new Vuex.Store({
   },
   getters,
   state: {
-    isCollapse: false
+    isCollapse: true
   },
   mutations: {
     openSideBar (state) {

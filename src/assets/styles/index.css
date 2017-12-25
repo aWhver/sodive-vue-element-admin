@@ -3,6 +3,9 @@
   transition: margin-left 0.5s linear;
   padding: 0 20px;
 }
+.app-main {
+  margin: 15px 0;
+}
 .el-menu-horizontal {
   padding: 10px 0px;
   border-bottom: 2px solid #000;
@@ -30,8 +33,36 @@ a {
 .box-content {
   padding: 14px 15px 7px;
 }
+.filter-container {
+  margin-bottom: 10px;
+}
+.filter-container .filter-item {
+  display: inline-block;
+}
+.el-header {
+  padding: 0;
+  height: auto !important;
+}
+.el-header h3 {
+  margin-top: 18px;
+}
+.el-header .el-button {
+  margin: 10px 0;
+}
+.el-table__row .el-button {
+  padding: 7px 10px;
+}
 .fr {
   float: right;
+}
+.fl {
+  float: left;
+}
+.clearFloat::after,
+.clearFloat::before {
+  display: block;
+  content: '';
+  clear: both;
 }
 h1,
 h2,

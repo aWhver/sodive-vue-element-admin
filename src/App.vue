@@ -6,5 +6,5 @@
 
 <style>
   @import 'normalize.css/normalize.css';
-  @import 'assets/styles/index.less';
+  @import 'assets/styles/index.css';
 </style>

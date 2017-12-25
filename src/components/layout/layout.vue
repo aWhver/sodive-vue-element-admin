@@ -7,7 +7,9 @@
         <BreakCrumb></BreakCrumb>
       </div>
       <tag-views></tag-views>
-      <router-view/>
+      <div class="app-main">
+        <router-view/>
+      </div>
     </div>
   </div>
 </template>
