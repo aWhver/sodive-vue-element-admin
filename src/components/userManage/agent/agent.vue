@@ -33,7 +33,7 @@
           </el-table-column>
           <el-table-column label="id" width="90px" align="center">
             <template slot-scope="scope">
-              <span>{{ scope.row.agentId }}</span>
+              <span>{{ scope.row.userId }}</span>
             </template>
           </el-table-column>
           <el-table-column label="昵称" width="150px" align="center">
@@ -125,7 +125,7 @@
       </span>
     </el-dialog>
     <!-- 合伙人国际修改弹窗 -->
-    <el-dialog title="注销合伙人" :visible.sync="cancelVisible" width="350px">
+    <el-dialog title="注销合伙人" :visible.sync="cancelVisible" width="350px" center>
       <div class="input-item" style="text-align: center;">
         <h3>确定要注销合伙人(ID: A45454)?</h3>
       </div>
@@ -156,7 +156,7 @@
         },
         ModifyData: {
           id: '',
-          agentId: '',
+          userId: '',
           nickName: '',
           point: 0,
           registerTime: '',
@@ -229,7 +229,7 @@
       },
       sureLogOff () {
         for (const i of this.list) {
-          if (i.agentId === this.ModifyData.agentId) {
+          if (i.userId === this.ModifyData.userId) {
             const index = this.list.indexOf(i)
             this.list[index].status = 1
             break

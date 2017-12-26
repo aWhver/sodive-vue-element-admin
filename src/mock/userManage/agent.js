@@ -10,7 +10,7 @@ let count = 100
 for (let i = 0; i < count; i++) {
   agentList.push(Mock.mock({
     id: '@increment',
-    agentId: 'A@integer(10000, 99999)',
+    userId: 'A@integer(10000, 99999)',
     nickName: '@name',
     point: '@integer(100, 999)',
     registerTime: '@datetime',
@@ -25,10 +25,10 @@ for (let i = 0; i < count; i++) {
 
 export default {
   getAgentList: config => {
-    let { page = 1, limit = 10, agentId, nickName, phoneNo, email, countryName, sortId } = paramObj(config.url)
+    let { page = 1, limit = 10, userId, nickName, phoneNo, email, countryName, sortId } = paramObj(config.url)
     if (nickName) nickName = nickName.replace(/\+/, ' ')
     let mockList = agentList.filter(item => {
-      if (agentId && item.agentId !== agentId) return false
+      if (userId && item.userId !== userId) return false
       if (nickName && item.nickName !== nickName) return false
       if (phoneNo && item.phoneNo !== phoneNo) return false
       if (email && item.email !== email) return false
@@ -51,7 +51,7 @@ export default {
     const time = formatTime()
     const newArticle = {
       id: ++count,
-      agentId: data.agentId,
+      userId: data.agentId,
       nickName: 'agent',
       point: 0,
       registerTime: time,

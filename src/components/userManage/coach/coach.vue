@@ -27,7 +27,7 @@
             </template>
           </el-table-column>
           <el-table-column label="序号" width="50px" align="center" prop="id"></el-table-column>
-          <el-table-column label="教练ID" width="90px" align="center" prop="coachId"></el-table-column>
+          <el-table-column label="教练ID" width="90px" align="center" prop="userId"></el-table-column>
           <el-table-column label="昵称" width="150px" align="center" prop="nickName"></el-table-column>
           <el-table-column label="地区" width="100px" align="center">
             <template slot-scope="scope">
@@ -52,18 +52,18 @@
           <el-table-column label="操作" width="170px">
             <template slot-scope="scope">
               <template v-if="scope.row.status === 0 && scope.row.certificate !== '未上传'">
-                <el-button type="info">注销</el-button>
+                <el-button type="info" @click="showDialog(scope.row)">注销</el-button>
                 <el-button type="success">查看证书</el-button>
               </template>
               <template v-else-if="scope.row.status === 1 && scope.row.certificate !== '未上传'">
-                <el-button type="primary">恢复</el-button>
+                <el-button type="primary" @click="showDialog(scope.row)">恢复</el-button>
                 <el-button type="success">查看证书</el-button>
               </template>
               <template v-else-if="scope.row.status === 1">
-                <el-button type="primary">恢复</el-button>
+                <el-button type="primary" @click="showDialog(scope.row)">恢复</el-button>
               </template>
               <template v-else>
-                <el-button type="info">注销</el-button>
+                <el-button type="info" @click="showDialog(scope.row)">注销</el-button>
               </template>
             </template>
           </el-table-column>
@@ -73,6 +73,17 @@
         <pagination  :currentPage="listQuery.page" :total="total" :handleSizeChange="handleSizeChange" :handleCurrentChange="handleCurrentChange"></pagination>
       </el-footer>
     </el-container>
+    <!-- 教练注销与恢复弹窗 -->
+    <el-dialog :title="selectedInfo.isLogOff ? '注销教练' : '恢复教练'" :visible.sync="visible" width="350px" center>
+      <div class="input-item" style="text-align: center;">
+        <h3 v-if="selectedInfo.isLogOff">确定要注销教练(ID: {{ selectedInfo.coachId }})?</h3>
+        <h3 v-else>确定要恢复教练(ID: {{ selectedInfo.coachId }})?</h3>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="visible = false">取 消</el-button>
+        <el-button @click="logOffReback()" type="primary">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -80,6 +91,10 @@
   import multiplicationFilter from 'views/multiplicationFilter/multiplicationFilter'
   import pagination from 'views/pagination/pagination'
   let countryObj = {}
+  const promptMap = [
+    {type: 'success', message: '恢复教练成功', title: 'Prompt', duration: 1500},
+    {type: 'success', message: '注销教练成功', title: 'Prompt', duration: 1500}
+  ]
   export default {
     name: 'coach',
     data () {
@@ -87,8 +102,13 @@
         total: 1,
         list: null,
         loading: true,
+        visible: false,
         listQuery: {page: 1},
-        countryMap: []
+        countryMap: [],
+        selectedInfo: {
+          isLogOff: null,
+          coachId: null
+        }
       }
     },
     created () {
@@ -102,6 +122,25 @@
           this.total = response.data.total
           this.loading = false
         })
+      },
+      showDialog (row) {
+        this.selectedInfo.isLogOff = row.status ? 0 : 1
+        this.selectedInfo.coachId = row.userId
+        this.visible = true
+      },
+      logOffReback () {
+        for (const i of this.list) {
+          if (i.userId === this.selectedInfo.coachId) {
+            if (i.status === 0) {
+              i.status = 1
+            } else {
+              i.status = 0
+            }
+            this.$notify(promptMap[i.status])
+            this.visible = false
+            break
+          }
+        }
       },
       searchBtn () {
         this.listQuery.page = 1

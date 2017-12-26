@@ -31,3 +31,11 @@ export function getCoachList (listQuery) {
     params: listQuery
   })
 }
+
+export function getUserList (listQuery) {
+  return request({
+    url: '/userManage/userList',
+    method: 'get',
+    params: listQuery
+  })
+}

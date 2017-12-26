@@ -5,6 +5,7 @@ import Mock from 'mockjs'
 import loginAPI from './login'
 import getAgentListAPI from './userManage/agent'
 import getCoachListAPI from './userManage/coach'
+import getUserListAPI from './userManage/user'
 
 Mock.mock(/\/user\/login/, 'post', loginAPI.login)
 Mock.mock(/\/user\/userInfo/, 'post', loginAPI.getUserInfo)
@@ -13,5 +14,6 @@ Mock.mock(/\/user\/userInfo/, 'post', loginAPI.getUserInfo)
 Mock.mock(/\/userManage\/agentList/, 'get', getAgentListAPI.getAgentList)
 Mock.mock(/\/userManage\/addAgent/, 'get', getAgentListAPI.addAgent)
 Mock.mock(/\/userManage\/coachList/, 'get', getCoachListAPI.getCoachList)
+Mock.mock(/\/userManage\/userList/, 'get', getUserListAPI.getUserList)
 
 export default Mock

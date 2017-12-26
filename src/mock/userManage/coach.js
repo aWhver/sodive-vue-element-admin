@@ -9,8 +9,8 @@ const count = 100
 
 for (let i = 0; i < count; i++) {
   coachList.push(Mock.mock({
-    id: '@increment',
-    coachId: 'C@integer(10000, 99999)',
+    'id': '@increment',
+    userId: 'C@integer(10000, 99999)',
     nickName: '@first',
     'countryName|1': ['cn', 'us', 'nsl'],
     point: '@integer(0, 1000)',
@@ -28,10 +28,10 @@ for (let i = 0; i < count; i++) {
 
 export default {
   getCoachList: config => {
-    const { page = 1, limit = 10, email, coachId, countryName, nickName, phoneNo, sortId } = paramObj(config.url)
+    const { page = 1, limit = 10, email, userId, countryName, nickName, phoneNo, sortId } = paramObj(config.url)
     let mockList = coachList.filter(item => {
       if (email && email !== item.email) return false
-      if (coachId && coachId !== item.coachId) return false
+      if (userId && userId !== item.userId) return false
       if (countryName && countryName !== item.countryName) return false
       if (nickName && nickName !== item.nickName) return false
       if (phoneNo && phoneNo !== item.phoneNo) return false

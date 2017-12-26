@@ -2,7 +2,7 @@
   <el-header>
     <div class="filter-container">
       <div class="filter-item">
-        <el-input style="width: 100px" v-model="listQuery.agentId" placeholder="ID" clearable></el-input>
+        <el-input style="width: 100px" v-model="listQuery.userId" placeholder="ID" clearable></el-input>
       </div>
       <div class="filter-item">
         <el-input style="width: 100px" v-model="listQuery.nickName" placeholder="昵称" clearable></el-input>
@@ -41,7 +41,7 @@
         listQuery: {
           page: 1,
           limit: 10,
-          agentId: null,
+          userId: null,
           nickName: null,
           phoneNo: null,
           email: null,
