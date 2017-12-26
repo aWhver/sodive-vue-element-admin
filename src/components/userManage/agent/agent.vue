@@ -1,38 +1,14 @@
 <template>
   <div>
     <el-container>
-      <el-header>
-        <div class="filter-container">
-          <div class="filter-item">
-            <el-input style="width: 100px" v-model="listQuery.agentId" placeholder="ID" clearable></el-input>
-          </div>
-          <div class="filter-item">
-            <el-input style="width: 100px" v-model="listQuery.nickName" placeholder="昵称" clearable></el-input>
-          </div>
-          <div class="filter-item">
-            <el-input style="width: 150px" v-model="listQuery.phoneNo" placeholder="手机" clearable></el-input>
-          </div>
-          <div class="filter-item">
-            <el-input style="width: 200px" v-model="listQuery.email" placeholder="邮箱" clearable></el-input>
-          </div>
-          <div class="filter-item filter-select">
-            <el-select style="width: 120px" v-model="listQuery.countryName" placeholder="国籍">
-              <el-option v-for="country in countryMap" :key="country.key" :value="country.key" :label="country.name"></el-option>
-            </el-select>
-          </div>
-          <div class="filter-item filter-select">
-            <el-select style="width: 135px" v-model="listQuery.sortId" placeholder="排序" @change="searchBtn()">
-              <el-option v-for="item in sortOptions" :key="item.key" :value="item.key" :label="item.label"></el-option>
-            </el-select>
-          </div>
-          <div class="filter-item">
-            <el-button type="primary" icon="el-icon-search" @click="searchBtn()">搜索</el-button>
-          </div>
-          <div class="filter-item">
-            <el-button type="primary" icon="el-icon-edit" @click="agentVisible = true">新增合伙人</el-button>
-          </div>
+      <multiplicationFilter v-on:sendListQuery="acceptQuery" :searchBtn="searchBtn">
+        <div class="filter-item">
+          <el-button type="primary" icon="el-icon-search" @click="searchBtn()">搜索</el-button>
         </div>
-      </el-header>
+        <div class="filter-item">
+          <el-button type="primary" icon="el-icon-edit" @click="agentVisible = true">新增合伙人</el-button>
+        </div>
+      </multiplicationFilter>
       <el-main>
         <el-table :data="list" style="width:100%" border v-loading="loading" element-loading-text="小主,我需要时间...">
           <el-table-column type="expand">
@@ -104,7 +80,8 @@
         </el-table>
       </el-main>
       <el-footer>
-        <el-pagination
+        <pagination :currentPage="listQuery.page" :total="total" :handleSizeChange="handleSizeChange" :handleCurrentChange="handleCurrentChange"></pagination>
+        <!--<el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="listQuery.page"
@@ -113,7 +90,7 @@
           layout="total, sizes, prev, pager, next, jumper"
           :total="total"
           background>
-        </el-pagination>
+        </el-pagination>-->
       </el-footer>
     </el-container>
     <!-- 新增合伙人弹窗 -->
@@ -160,38 +137,22 @@
   </div>
 </template>
 <script>
-  import { getAgentList, addAgent } from 'api/userManage/agent'
-  const countryMap = [
-    {key: 'cn', name: '中国'},
-    {key: 'us', name: '美国'},
-    {key: 'nsl', name: '新西兰'}
-  ]
-
-  // array to obj
-  const countryObj = countryMap.reduce((obj, item) => {
-    obj[item.key] = item.name
-    return obj
-  }, {})
-
+  import { getAgentList, addAgent } from 'api/userManage'
+  import multiplicationFilter from 'views/multiplicationFilter/multiplicationFilter'
+  import pagination from 'views/pagination/pagination'
+  let countryObj = {}
   export default {
     name: 'agent',
     data () {
       return {
         list: null,
-        total: null,
+        total: 1,
         loading: true,
         agentVisible: false,
         modifyVisible: false,
         cancelVisible: false,
         listQuery: {
-          page: 1,
-          limit: 10,
-          agentId: null,
-          nickName: null,
-          phoneNo: null,
-          email: null,
-          countryName: null,
-          sortId: '+id'
+          page: 1
         },
         ModifyData: {
           id: '',
@@ -206,11 +167,10 @@
           countryName: '',
           status: 0
         },
-        countryMap: countryMap,
-        sortOptions: [{ label: '按ID升序排列', key: '+id' }, { label: '按ID降序排列', key: '-id' }]
+        countryMap: []
       }
     },
-    mounted () {
+    created () {
       this.GetAgentList()
     },
     methods: {
@@ -244,7 +204,7 @@
       modifyData (row) {
         this.ModifyData = Object.assign({}, row)
         this.modifyVisible = true
-        const toModify = countryMap.filter(item => item.key === row.countryName)
+        const toModify = this.countryMap.filter(item => item.key === row.countryName)
         this.ModifyData.countryName = toModify[0]['key']
       },
       sureModify () {
@@ -290,28 +250,26 @@
       handleCurrentChange (val) {
         this.listQuery.page = val
         this.GetAgentList()
+      },
+      acceptQuery (query) {
+        this.listQuery = query.listQuery
+        this.countryMap = query.countryMap
+        // Array to Object
+        countryObj = query.countryMap.reduce((obj, item) => {
+          obj[item.key] = item.name
+          return obj
+        }, {})
       }
     },
     filters: {
       countryFilter (val) {
         return countryObj[val]
       }
-    }
+    },
+    components: { multiplicationFilter, pagination }
   }
 </script>
 <style lang="less">
-  .expand-table {
-    font-size: 0;
-    label {
-      width: 90px;
-      color: #99a9bf;
-    }
-    .el-form-item {
-      margin-right: 0;
-      margin-bottom: 0;
-      width: 50%;
-    }
-  }
   .el-dialog {
     .input-item {margin: 15px 0;}
     &__footer {text-align: center;}

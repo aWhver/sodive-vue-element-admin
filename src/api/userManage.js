@@ -23,3 +23,11 @@ export function addAgent (agentId, countryName, email) {
     data
   })
 }
+
+export function getCoachList (listQuery) {
+  return request({
+    url: '/userManage/coachList',
+    method: 'get',
+    params: listQuery
+  })
+}

@@ -11,10 +11,16 @@ export function paramObj (url) {
 
 export function formatTime () {
   const year = new Date().getFullYear()
-  const month = new Date().getMonth()
+  const month = new Date().getMonth() + 1
   const day = new Date().getDate()
   const hour = new Date().getHours()
   const minute = new Date().getMinutes()
   const second = new Date().getSeconds()
   return `${year}-${month}-${day} ${hour}:${minute}:${second}`
+}
+
+export function randomColor () {
+  return '#' + (function (color) {
+    return new Array(7 - color.length).join('0') + color
+  })((Math.random() * 0x1000000 << 0).toString(16))
 }
