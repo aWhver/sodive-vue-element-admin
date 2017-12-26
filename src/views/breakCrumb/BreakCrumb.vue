@@ -1,6 +1,6 @@
 <template>
   <div class="breakCrumb-container">
-    <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb separator="/">
       <el-breadcrumb-item v-for="(item, index) in routerList" :key="item.path">
         <span v-if="item.redirect">{{  item.meta.title }}</span>
         <router-link v-else :to="item.path">{{  item.meta.title }} </router-link>

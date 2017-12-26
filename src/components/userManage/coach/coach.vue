@@ -26,20 +26,20 @@
               </el-form>
             </template>
           </el-table-column>
-          <el-table-column label="序号" width="50px" align="center" prop="id"></el-table-column>
-          <el-table-column label="教练ID" width="90px" align="center" prop="userId"></el-table-column>
-          <el-table-column label="昵称" width="150px" align="center" prop="nickName"></el-table-column>
-          <el-table-column label="地区" width="100px" align="center">
+          <el-table-column label="序号" align="center" prop="id"></el-table-column>
+          <el-table-column label="教练ID" align="center" prop="userId"></el-table-column>
+          <el-table-column label="昵称" align="center" prop="nickName"></el-table-column>
+          <el-table-column label="地区" align="center">
             <template slot-scope="scope">
               <span>{{ scope.row.countryName | countryFilter }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="积分" width="80px" align="center" prop="point"></el-table-column>
+          <el-table-column label="积分"  align="center" prop="point"></el-table-column>
           <el-table-column label="注册时间" min-width="120px" align="center" prop="registerTime"></el-table-column>
-          <el-table-column label="证书" width="120px" align="center" prop="certificate"></el-table-column>
-          <el-table-column label="绑定用户" width="90px" align="center" prop="bindUser"></el-table-column>
-          <el-table-column label="合伙人" width="150px" align="center" prop="agent"></el-table-column>
-          <el-table-column label="状态" width="70px" align="center">
+          <el-table-column label="证书"align="center" prop="certificate"></el-table-column>
+          <el-table-column label="绑定用户" align="center" prop="bindUser"></el-table-column>
+          <el-table-column label="合伙人" align="center" prop="agent"></el-table-column>
+          <el-table-column label="状态" align="center">
             <template slot-scope="scope">
               <el-tag type="info" v-if="scope.row.status === 0">
                 正常
