@@ -2,7 +2,7 @@
   <el-pagination
     @size-change="handleSizeChange"
     @current-change="handleCurrentChange"
-    :current-page="currentPage"
+    :current-page="listQuery.page"
     :page-size="10"
     :page-sizes="[10, 15, 30, 50]"
     layout="total, sizes, prev, pager, next, jumper"
@@ -14,19 +14,26 @@
   export default {
     name: 'pagination',
     props: {
-      currentPage: {
-        type: Number,
+      listQuery: {
+        type: Object,
         required: true
       },
       total: {
         type: Number,
         required: true
       },
-      handleSizeChange: {
+      GetList: {
         type: Function
+      }
+    },
+    methods: {
+      handleSizeChange (val) {
+        this.listQuery.limit = val
+        this.GetList()
       },
-      handleCurrentChange: {
-        type: Function
+      handleCurrentChange (val) {
+        this.listQuery.page = val
+        this.GetList()
       }
     }
   }

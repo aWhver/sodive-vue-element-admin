@@ -13,7 +13,7 @@ for (let i = 0; i < count; i++) {
     'userId': '@integer(100000, 999999)',
     'nickName': '@first',
     'countryName|1': ['cn', 'us', 'nsl'],
-    'certificate|1': ['未上传', '已上传,待审核', '已认证'],
+    'certificate|1': ['未上传', '已上传,待审核', '已认证', '未通过'],
     'registerTime': '@datetime',
     'recommendNum': '@integer(0, 100)',
     'recommendName': '@integer(100000, 999999)',

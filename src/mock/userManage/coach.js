@@ -16,7 +16,7 @@ for (let i = 0; i < count; i++) {
     point: '@integer(0, 1000)',
     registerTime: '@datetime',
     email: '@email',
-    'certificate|1': ['未上传', '已上传,待审核', '已认证'],
+    'certificate|1': ['未上传', '已上传,待审核', '已认证', '未通过'],
     bindUser: '@integer(0, 100)',
     'agent|1': 'A@integer(10000, 99999)',
     'status|1': '@integer(0, 1)',

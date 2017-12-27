@@ -1,5 +1,5 @@
 /**
- * Created by lenovo on 2017/12/15.
+ * Created by zhaojuntong on 2017/12/15.
  */
 import Vue from 'vue'
 import SvgIcon from 'views/svgIcon/svgIcon'

@@ -80,7 +80,7 @@
         </el-table>
       </el-main>
       <el-footer>
-        <pagination :currentPage="listQuery.page" :total="total" :handleSizeChange="handleSizeChange" :handleCurrentChange="handleCurrentChange"></pagination>
+        <pagination :listQuery="listQuery" :total="total" :GetList="GetAgentList"></pagination>
         <!--<el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
@@ -139,7 +139,6 @@
 <script>
   import { getAgentList, addAgent } from 'api/userManage'
   import multiplicationFilter from 'views/multiplicationFilter/multiplicationFilter'
-  import pagination from 'views/pagination/pagination'
   let countryObj = {}
   export default {
     name: 'agent',
@@ -266,7 +265,7 @@
         return countryObj[val]
       }
     },
-    components: { multiplicationFilter, pagination }
+    components: { multiplicationFilter }
   }
 </script>
 <style lang="less">

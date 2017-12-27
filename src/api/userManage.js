@@ -39,3 +39,19 @@ export function getUserList (listQuery) {
     params: listQuery
   })
 }
+
+export function getCoachCertificateList (listQuery) {
+  return request({
+    url: '/userManage/coachCertificateList',
+    method: 'get',
+    params: listQuery
+  })
+}
+
+export function getPayAccountList (listQuery) {
+  return request({
+    url: '/userManage/PayAccountList',
+    method: 'get',
+    params: listQuery
+  })
+}

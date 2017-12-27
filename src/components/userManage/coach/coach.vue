@@ -70,7 +70,7 @@
         </el-table>
       </el-main>
       <el-footer>
-        <pagination  :currentPage="listQuery.page" :total="total" :handleSizeChange="handleSizeChange" :handleCurrentChange="handleCurrentChange"></pagination>
+        <pagination  :listQuery="listQuery" :total="total" :GetList="GetCoachList"></pagination>
       </el-footer>
     </el-container>
     <!-- 教练注销与恢复弹窗 -->
@@ -89,7 +89,6 @@
 <script>
   import { getCoachList } from 'api/userManage'
   import multiplicationFilter from 'views/multiplicationFilter/multiplicationFilter'
-  import pagination from 'views/pagination/pagination'
   let countryObj = {}
   const promptMap = [
     {type: 'success', message: '恢复教练成功', title: 'Prompt', duration: 1500},
@@ -146,14 +145,6 @@
         this.listQuery.page = 1
         this.GetCoachList()
       },
-      handleSizeChange (val) {
-        this.listQuery.limit = val
-        this.GetCoachList()
-      },
-      handleCurrentChange (val) {
-        this.listQuery.page = val
-        this.GetCoachList()
-      },
       acceptQuery (query) {
         this.listQuery = query.listQuery
         this.countryMap = query.countryMap
@@ -168,7 +159,7 @@
         return countryObj[val]
       }
     },
-    components: { multiplicationFilter, pagination }
+    components: { multiplicationFilter }
   }
 </script>
 <style lang="less">

@@ -70,7 +70,7 @@
         </el-table>
       </el-main>
       <el-footer>
-        <pagination  :currentPage="listQuery.page" :total="total" :handleSizeChange="handleSizeChange" :handleCurrentChange="handleCurrentChange"></pagination>
+        <pagination  :listQuery="listQuery" :total="total" :GetList="GetUserList"></pagination>
       </el-footer>
     </el-container>
     <!-- 用户注销与恢复弹窗 -->
@@ -89,7 +89,6 @@
 <script>
   import { getUserList } from 'api/userManage'
   import multiplicationFilter from 'views/multiplicationFilter/multiplicationFilter'
-  import pagination from 'views/pagination/pagination'
   let countryObj = {}
   const promptMap = [
     {type: 'success', message: '恢复教练成功', title: 'Prompt', duration: 1500},
@@ -103,7 +102,7 @@
         total: 1,
         loading: true,
         visible: false,
-        listQuery: {page: 1},
+        listQuery: {page: 1, limit: 10},
         countryMap: [],
         selectedInfo: {
           isLogOff: null,
@@ -111,7 +110,7 @@
         }
       }
     },
-    mounted () { this.GetUserList() },
+    created () { this.GetUserList() },
     methods: {
       GetUserList () {
         this.loading = true
@@ -144,14 +143,6 @@
         this.listQuery.page = 1
         this.GetUserList()
       },
-      handleSizeChange (val) {
-        this.listQuery.limit = val
-        this.GetUserList()
-      },
-      handleCurrentChange (val) {
-        this.listQuery.page = val
-        this.GetUserList()
-      },
       acceptQuery (query) {
         this.listQuery = query.listQuery
         this.countryMap = query.countryMap
@@ -166,7 +157,7 @@
         return countryObj[val]
       }
     },
-    components: { multiplicationFilter, pagination }
+    components: { multiplicationFilter }
   }
 </script>
 <style lang="less">
