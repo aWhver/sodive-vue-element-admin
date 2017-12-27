@@ -2,10 +2,10 @@
   <el-header>
     <div class="filter-container">
       <div class="filter-item">
-        <el-input style="width: 150px" v-model="listQuery.userId" placeholder="ID" clearable></el-input>
+        <el-input style="width: 100px" v-model="listQuery.userId" placeholder="ID" clearable></el-input>
       </div>
       <div class="filter-item">
-        <el-input style="width: 200px" v-model="listQuery.name" placeholder="姓名" clearable></el-input>
+        <el-input style="width: 120px" v-model="listQuery.name" placeholder="姓名" clearable></el-input>
       </div>
       <slot></slot>
       <div class="filter-item filter-select">
@@ -39,10 +39,9 @@
         sortOptions: [{ label: '按ID升序排列', key: '+id' }, { label: '按ID降序排列', key: '-id' }]
       }
     },
-    mounted () { this.queryToParent() },
+    created () { this.queryToParent() },
     methods: {
       searchBtn () {
-        console.log(1)
         this.listQuery.page = 1
         this.GetList()
       },
@@ -55,6 +54,3 @@
     }
   }
 </script>
-<style lang="less">
-
-</style>

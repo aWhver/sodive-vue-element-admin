@@ -15,8 +15,8 @@ for (let i = 0; i < count; i++) {
     'payType': '@integer(0, 2)', /* 0 => alipay, 1 => wechat, 2 => paypal */
     'account': '@integer(1114511, 9456489745)@qq.com',
     'name': '@first',
-    'createTime': '@datetime',
-    'modifyTime': '@datetime',
+    'createTime': '@datetime(yyyy-MM-dd)',
+    'modifyTime': '@datetime(yyyy-MM-dd)',
     'status|1': '@integer(0 ,1)' /* 0 => 正常, 1 => 失效 */
   }))
 }
@@ -24,9 +24,11 @@ for (let i = 0; i < count; i++) {
 export default {
   getPayAccountList: config => {
     const { page = 1, limit = 10, userId, name, payType, sortId } = paramObj(config.url)
+
     let mockList = payAccountList.filter(item => {
       if (userId && item.userId !== userId) return false
       if (name && item.name !== name) return false
+      if (payType === undefined) return true
       if ((payType + '') && item.payType !== (payType * 1)) return false
       return true
     })

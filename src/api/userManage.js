@@ -50,7 +50,7 @@ export function getCoachCertificateList (listQuery) {
 
 export function getPayAccountList (listQuery) {
   return request({
-    url: '/userManage/PayAccountList',
+    url: '/userManage/payAccountList',
     method: 'get',
     params: listQuery
   })

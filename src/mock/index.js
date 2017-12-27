@@ -18,6 +18,6 @@ Mock.mock(/\/userManage\/addAgent/, 'get', getAgentListAPI.addAgent)
 Mock.mock(/\/userManage\/coachList/, 'get', getCoachListAPI.getCoachList)
 Mock.mock(/\/userManage\/userList/, 'get', getUserListAPI.getUserList)
 Mock.mock(/\/userManage\/coachCertificateList/, 'get', getCoachCertificateListAPI.getCertificateList)
-Mock.mock(/\/userManage\/payAccountList/, 'get', getPayAccountListAPI.getCertificateList)
+Mock.mock(/\/userManage\/payAccountList/, 'get', getPayAccountListAPI.getPayAccountList)
 
 export default Mock

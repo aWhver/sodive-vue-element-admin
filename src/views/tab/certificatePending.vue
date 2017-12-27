@@ -3,7 +3,7 @@
     <certificate-filter v-on:sendListQuery="acceptQuery" :GetList="GetCertificateList"></certificate-filter>
     <el-main>
       <el-table :data="pending.certificateList" border style="text-align: center">
-        <el-table-column label="序号" prop="id"></el-table-column>
+        <el-table-column label="序号" prop="id" width="60px"></el-table-column>
         <el-table-column label="ID" prop="userId"></el-table-column>
         <el-table-column label="昵称" prop="nickName"></el-table-column>
         <el-table-column label="用户类型" prop="userType"></el-table-column>
@@ -16,19 +16,19 @@
             <el-tag :type="scope.row.status | statusTagFilter">{{ scope.row.status | statusFilter}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column min-width="120px" label="操作">
+        <el-table-column min-width="160px" label="操作">
           <template slot-scope="scope">
             <template v-if="scope.row.status === 0">
-              <el-button type="success" @click="pass(scope.row)">通过</el-button>
-              <el-button type="danger" @click="noPass(scope.row)">不通过</el-button>
-              <el-button type="primary" @click="checkPic">查看</el-button>
+              <el-button type="success" size="mini" @click="pass(scope.row)">通过</el-button>
+              <el-button type="danger" size="mini" @click="noPass(scope.row)">不通过</el-button>
+              <el-button type="primary" size="mini" @click="checkPic">查看</el-button>
             </template>
             <template v-else-if="scope.row.status === 1">
-              <el-button type="primary" @click="checkPic">查看</el-button>
+              <el-button type="primary" size="mini" @click="checkPic">查看</el-button>
             </template>
             <template v-else>
-              <el-button type="success"  @click="pass(scope.row)">通过</el-button>
-              <el-button type="primary" @click="checkPic">查看</el-button>
+              <el-button type="success" size="mini" @click="pass(scope.row)">通过</el-button>
+              <el-button type="primary" size="mini" @click="checkPic">查看</el-button>
             </template>
           </template>
         </el-table-column>
