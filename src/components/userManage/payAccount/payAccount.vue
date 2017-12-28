@@ -2,6 +2,12 @@
   <div>
     <certificate-filter v-on:sendListQuery="acceptQuery" :GetList="GetPayAccountList">
       <div class="filter-item">
+        <el-input style="width: 100px" v-model="listQuery.userId" placeholder="ID" clearable></el-input>
+      </div>
+      <div class="filter-item">
+        <el-input style="width: 120px" v-model="listQuery.name" placeholder="姓名" clearable></el-input>
+      </div>
+      <div class="filter-item">
         <el-select v-model="listQuery.payType" placeholder="支付类型" clearable style="width:120px">
           <el-option v-for="item in payTypeMap" :key="item.payType" :value="item.payType" :label="item.name"></el-option>
         </el-select>
@@ -40,7 +46,6 @@
 </template>
 <script>
   import { getPayAccountList } from 'api/userManage'
-  import certificateFilter from 'views/multiplicationFilter/certificateFilter'
   const payTypeMap = [
     {payType: 0, name: 'Alipay'},
     {payType: 1, name: 'Wechat'},
@@ -57,8 +62,9 @@
       return {
         list: null,
         total: 1,
-        listQuery: {page: 1, payType: null},
-        payTypeMap: payTypeMap
+        listQuery: {page: 1, payType: null, userId: null, name: null},
+        payTypeMap: payTypeMap,
+        statusMap: ['该用户支付账号已恢复正常', '已成功注销该账户']
       }
     },
     created () {
@@ -76,6 +82,12 @@
       },
       changeStatus (row) {
         row.status = row.statusSwitch ? 0 : 1
+        this.$notify({
+          message: this.statusMap[row.status],
+          title: '操作成功',
+          type: 'success',
+          duration: 2000
+        })
       },
       acceptQuery (query) {
         this.listQuery = query.listQuery
@@ -93,8 +105,7 @@
         const tagMap = ['success', 'danger']
         return tagMap[status]
       }
-    },
-    components: { certificateFilter }
+    }
   }
 </script>
 <style lang="less">

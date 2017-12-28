@@ -49,6 +49,9 @@ a {
 .el-header .el-button {
   margin: 10px 0;
 }
+.el-main {
+  padding: 0 0 20px;
+}
 .el-table__header th div.cell {
   text-align: center;
 }

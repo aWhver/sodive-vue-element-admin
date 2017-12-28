@@ -90,10 +90,6 @@
   import { getCoachList } from 'api/userManage'
   import multiplicationFilter from 'views/multiplicationFilter/multiplicationFilter'
   let countryObj = {}
-  const promptMap = [
-    {type: 'success', message: '恢复教练成功', title: 'Prompt', duration: 1500},
-    {type: 'success', message: '注销教练成功', title: 'Prompt', duration: 1500}
-  ]
   export default {
     name: 'coach',
     data () {
@@ -107,7 +103,8 @@
         selectedInfo: {
           isLogOff: null,
           coachId: null
-        }
+        },
+        promptMap: ['恢复教练成功', '注销教练成功']
       }
     },
     created () {
@@ -135,7 +132,7 @@
             } else {
               i.status = 0
             }
-            this.$notify(promptMap[i.status])
+            this.$notify({type: 'success', message: this.promptMap[i.status], title: 'Prompt', duration: 2000})
             this.visible = false
             break
           }

@@ -90,10 +90,6 @@
   import { getUserList } from 'api/userManage'
   import multiplicationFilter from 'views/multiplicationFilter/multiplicationFilter'
   let countryObj = {}
-  const promptMap = [
-    {type: 'success', message: '恢复教练成功', title: 'Prompt', duration: 1500},
-    {type: 'success', message: '注销教练成功', title: 'Prompt', duration: 1500}
-  ]
   export default {
     name: 'user',
     data () {
@@ -107,7 +103,8 @@
         selectedInfo: {
           isLogOff: null,
           userId: null
-        }
+        },
+        promptMap: ['恢复用户成功', '注销用户成功']
       }
     },
     created () { this.GetUserList() },
@@ -133,11 +130,11 @@
             } else {
               i.status = 0
             }
-            this.$notify(promptMap[i.status])
-            this.visible = false
+            this.$notify({type: 'success', message: this.promptMap[i.status], title: 'Prompt', duration: 2000})
             break
           }
         }
+        this.visible = false
       },
       searchBtn () {
         this.listQuery.page = 1

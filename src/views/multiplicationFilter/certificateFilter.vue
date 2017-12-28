@@ -1,12 +1,6 @@
 <template>
   <el-header>
     <div class="filter-container">
-      <div class="filter-item">
-        <el-input style="width: 100px" v-model="listQuery.userId" placeholder="ID" clearable></el-input>
-      </div>
-      <div class="filter-item">
-        <el-input style="width: 120px" v-model="listQuery.name" placeholder="姓名" clearable></el-input>
-      </div>
       <slot></slot>
       <div class="filter-item filter-select">
         <el-select style="width: 135px" v-model="listQuery.sortId" placeholder="排序" @change="searchBtn()">
@@ -32,9 +26,7 @@
         listQuery: {
           page: 1,
           limit: 10,
-          userId: null,
-          sortId: '+id',
-          name: null
+          sortId: '+id'
         },
         sortOptions: [{ label: '按ID升序排列', key: '+id' }, { label: '按ID降序排列', key: '-id' }]
       }

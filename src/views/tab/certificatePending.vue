@@ -1,8 +1,15 @@
 <template>
   <div>
-    <certificate-filter v-on:sendListQuery="acceptQuery" :GetList="GetCertificateList"></certificate-filter>
+    <certificate-filter v-on:sendListQuery="acceptQuery" :GetList="GetCertificateList">
+      <div class="filter-item">
+        <el-input style="width: 100px" v-model="listQuery.userId" placeholder="ID" clearable></el-input>
+      </div>
+      <div class="filter-item">
+        <el-input style="width: 120px" v-model="listQuery.name" placeholder="姓名" clearable></el-input>
+      </div>
+    </certificate-filter>
     <el-main>
-      <el-table :data="pending.certificateList" border style="text-align: center">
+      <el-table :data="pending.certificateList" v-loading="loading" element-loading-text="小主,我需要时间..." border style="text-align: center">
         <el-table-column label="序号" prop="id" width="60px"></el-table-column>
         <el-table-column label="ID" prop="userId"></el-table-column>
         <el-table-column label="昵称" prop="nickName"></el-table-column>
@@ -50,7 +57,6 @@
 </template>
 <script>
   import { getCoachCertificateList } from 'api/userManage'
-  import certificateFilter from 'views/multiplicationFilter/certificateFilter'
   export default {
     name: 'certificatePending',
     props: {
@@ -62,10 +68,13 @@
     data () {
       return {
         pending: {certificateList: null, total: 1},
+        loading: true,
         listQuery: {
           page: 1,
           limit: 10,
-          type: this.type // 用以区分搜索证件状态
+          type: this.type, // 用以区分搜索证件状态
+          userId: null,
+          name: null
         },
         visible: false,
         selectedUserId: '',
@@ -77,8 +86,10 @@
     },
     methods: {
       GetCertificateList () {
+        this.loading = true
         getCoachCertificateList(this.listQuery).then(response => {
           this.pending = response.data
+          this.loading = false
         })
       },
       checkPic () {
@@ -128,8 +139,7 @@
       },
       acceptQuery (query) {
         // this.listQuery = Object.assign(this.listQuery, query.listQuery)
-        this.listQuery = query.listQuery
-        this.listQuery.type = this.type
+        this.listQuery = { ...this.listQuery, ...query.listQuery }
       }
     },
     filters: {
@@ -141,8 +151,7 @@
         const status = ['info', 'success', 'danger']
         return status[val]
       }
-    },
-    components: { certificateFilter }
+    }
   }
 </script>
 <style lang="less">

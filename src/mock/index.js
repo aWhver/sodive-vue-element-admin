@@ -8,6 +8,7 @@ import getCoachListAPI from './userManage/coach'
 import getUserListAPI from './userManage/user'
 import getCoachCertificateListAPI from './userManage/coachCertificate'
 import getPayAccountListAPI from './userManage/payAccount'
+import getOrderListAPI from './order'
 
 Mock.mock(/\/user\/login/, 'post', loginAPI.login)
 Mock.mock(/\/user\/userInfo/, 'post', loginAPI.getUserInfo)
@@ -19,5 +20,8 @@ Mock.mock(/\/userManage\/coachList/, 'get', getCoachListAPI.getCoachList)
 Mock.mock(/\/userManage\/userList/, 'get', getUserListAPI.getUserList)
 Mock.mock(/\/userManage\/coachCertificateList/, 'get', getCoachCertificateListAPI.getCertificateList)
 Mock.mock(/\/userManage\/payAccountList/, 'get', getPayAccountListAPI.getPayAccountList)
+
+// order
+Mock.mock(/\/orderList/, 'get', getOrderListAPI.getOrderList)
 
 export default Mock
