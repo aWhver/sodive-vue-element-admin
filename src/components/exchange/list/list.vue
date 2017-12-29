@@ -7,6 +7,11 @@
       <div class="filter-item">
         <el-input placeholder="商品名" v-model="listQuery.goodsName" clearable></el-input>
       </div>
+      <div style="display: inline-block;float: right;">
+        <el-button>上架</el-button>
+        <el-button>下架</el-button>
+        <router-link to="/exchange/addItems"><el-tag style="line-height: 38px;height: 40px;">新增商品</el-tag></router-link>
+      </div>
     </certificate-filter>
     <el-main>
       <el-table :data="list" border style="text-align: center">
