@@ -10,3 +10,9 @@ export function getExchangeList (listQuery) {
     params: listQuery
   })
 }
+export function getDetail (goodsId) {
+  return request({
+    url: `/exchange/${goodsId}`,
+    method: 'get'
+  })
+}

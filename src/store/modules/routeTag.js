@@ -7,7 +7,7 @@ export default {
   },
   mutations: {
     ADD_VISIBLE_TAG (state, tag) {
-      if (state.visitedTags.some(v => v.path === tag.path)) return
+      if (state.visitedTags.some(v => v.path === tag.path && tag.name)) return
       state.visitedTags = [
         ...state.visitedTags,
         {

@@ -105,6 +105,12 @@ export const asyncRouterMap = [
         name: 'addItems',
         component: _import('exchange/addItems/addItems'),
         meta: {title: '新增兑换券商品'}
+      },
+      {
+        path: ':id',
+        component: _import('exchange/addItems/addItems'),
+        meta: {title: '编辑兑换券商品'},
+        hidden: true
       }
     ]
   },
@@ -115,12 +121,12 @@ export const asyncRouterMap = [
     meta: {title: '内容管理', icon: 'neirongguanli'},
     redirect: '/contentManage/logger',
     children: [
-      {
+      /* {
         path: 'logger',
         name: 'logger',
         component: _import('contentManagement/logger/logger'),
         meta: {title: '潜水日志'}
-      },
+      }, */
       {
         path: 'discoverPending',
         name: 'discoverPending',
@@ -210,6 +216,18 @@ export const asyncRouterMap = [
         name: 'massEmail',
         component: _import('tools/massEmail/massEmail'),
         meta: {title: '群发邮件列表'}
+      },
+      {
+        path: 'emailTemplate',
+        name: 'emailTemplate',
+        component: _import('tools/massEmail/components/emailTemplate'),
+        meta: {title: '新建邮件模板'}
+      },
+      {
+        path: 'editTemplate/:emailId',
+        component: _import('tools/massEmail/components/emailTemplate'),
+        hidden: true,
+        meta: {title: '编辑邮件模板'}
       },
       {
         path: 'messageNotification',

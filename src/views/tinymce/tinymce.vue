@@ -2,7 +2,7 @@
   <div class="tinymce-container">
     <textarea :id="tinymceId"></textarea>
     <div class="edit-image">
-      <image-upload></image-upload>
+      <image-upload v-on:uploadSuccess="imageSuccess"></image-upload>
     </div>
   </div>
 </template>
@@ -75,11 +75,17 @@
               editor.setContent(this.value)
             }
             this.hasInit = true
-            editor.on('NodeChange Change KeyUp', () => {
+            editor.on('content change KeyUp', () => {
               this.hasChange = true
               this.$emit('input', editor.getContent({ format: 'raw' }))
             })
           }
+        })
+      },
+      imageSuccess (arr) {
+        const _this = this
+        arr.forEach(item => {
+          window.tinymce.get(_this.tinymceId).insertContent(`<img src="${item.url}" >`)
         })
       }
     },

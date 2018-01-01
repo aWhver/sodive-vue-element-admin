@@ -14,7 +14,7 @@
       </div>
     </certificate-filter>
     <el-main>
-      <el-table :data="list" border style="text-align: center">
+      <el-table :data="list" border style="text-align: center" v-loading="loading" element-loading-text="小主,我需要时间...">
         <el-table-column label="序号" prop="id"></el-table-column>
         <el-table-column label="ID" prop="userId"></el-table-column>
         <el-table-column label="用户类型" prop="userType"></el-table-column>
@@ -64,7 +64,8 @@
         total: 1,
         listQuery: {page: 1, payType: null, userId: null, name: null},
         payTypeMap: payTypeMap,
-        statusMap: ['该用户支付账号已恢复正常', '已成功注销该账户']
+        statusMap: ['该用户支付账号已恢复正常', '已成功注销该账户'],
+        loading: true
       }
     },
     created () {
@@ -72,12 +73,14 @@
     },
     methods: {
       GetPayAccountList () {
+        this.loading = true
         getPayAccountList(this.listQuery).then(response => {
           this.list = response.data.payAccountList.map(item => {
             this.$set(item, 'statusSwitch', !item.status)
             return item
           })
           this.total = response.data.total
+          this.loading = false
         })
       },
       changeStatus (row) {

@@ -22,7 +22,10 @@ for (let i = 0; i < count; i++) {
     'stock': '@integer(50, 100)', /* 库存 */
     'createTime': '@datetime',
     'updateTime': '@datetime',
-    'status': '@integer(0, 1)'
+    'status': '@integer(0, 1)',
+    'image': '@image(200x200, @color, sodive)',
+    'size': '@string',
+    'listImage|2-3': [{name: '@string', url: '@image(200x200, @color, sodive)'}]
   }))
 }
 
@@ -39,6 +42,14 @@ export default {
     return {
       total: mockList.length,
       exchangeList: pageList,
+      code: 2
+    }
+  },
+  detail: config => {
+    const goodsId = config.url.match(/\d+/)[0]
+    const dataObj = exchangeList.filter(item => item.goodsId === goodsId)[0]
+    return {
+      dataObj: dataObj,
       code: 2
     }
   }

@@ -21,12 +21,15 @@
             <el-tag :type="scope.row.status | statusTagFilter">{{ scope.row.status | statusFilter }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="220px">
           <template slot-scope="scope">
-            <el-button v-if="scope.row.status === 2" type="primary" @click="review(scope.row)">重新审核</el-button>
-            <template v-else>
+            <template v-if="scope.row.status === 1">
               <el-button type="success" @click="pass(scope.row)">通过</el-button>
               <el-button type="danger" @click="noPass(scope.row)">不通过</el-button>
+              <el-button type="warning" @click="deleteCover(scope.row)">删除</el-button>
+            </template>
+            <template v-else>
+              <el-button type="primary" @click="review(scope.row)">重新审核</el-button>
               <el-button type="warning" @click="deleteCover(scope.row)">删除</el-button>
             </template>
           </template>
@@ -41,13 +44,19 @@
 <script>
   import { getCoverList } from 'api/contentManagement'
   export default {
-    name: 'discoverPass',
+    name: 'coverPending',
+    props: {
+      type: {
+        type: Number,
+        default: 1
+      }
+    },
     data () {
       return {
         activeName: 'pending',
         list: null,
         total: 1,
-        listQuery: {page: 1, type: 2, userId: null}
+        listQuery: {page: 1, type: this.type, userId: null}
       }
     },
     created () { this.GetCoverList() },
@@ -116,7 +125,7 @@
       },
       acceptQuery (query) {
         this.listQuery = query.listQuery
-        this.listQuery.type = 2
+        this.listQuery.type = this.type
       }
     },
     filters: {

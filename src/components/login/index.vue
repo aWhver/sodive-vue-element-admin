@@ -1,13 +1,13 @@
 <template>
   <div class="login">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules">
-      <el-form-item>
+      <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon :icon-class="'user'"></svg-icon>
         </span>
         <el-input v-model="loginForm.username" autoComplete="on"></el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon :icon-class="'password'"></svg-icon>
         </span>
@@ -24,7 +24,7 @@
   export default {
     data () {
       const validateUsername = function (rule, value, cb) {
-        if (isValidUsername(value)) {
+        if (!isValidUsername(value)) {
           cb(new Error('用户名不正确'))
         } else {
           cb()
@@ -43,8 +43,8 @@
           password: 'zhanjuntong'
         },
         loginRules: {
-          username: [{required: true, trigger: blur, validator: validateUsername}],
-          password: [{required: true, trigger: blur, validator: validatePassword}]
+          username: [{required: true, trigger: 'blur', validator: validateUsername}],
+          password: [{required: true, trigger: 'blur', validator: validatePassword}]
         }
       }
     },

@@ -11,7 +11,7 @@
           </div>
         </certificate-filter>
         <el-main>
-          <el-table :data="list" border style="text-align: center">
+          <el-table :data="list" border style="text-align: center" v-loading="loading" element-loading-text="小主,我需要时间...">
             <el-table-column label="序号" prop="id"></el-table-column>
             <el-table-column label="用户ID" prop="userId"></el-table-column>
             <el-table-column label="订单号" prop="orderNo"></el-table-column>
@@ -54,7 +54,7 @@
               <el-form-item label="收货地址">
                 {{ canEditInfo.receiveAddress }}
               </el-form-item>
-              <el-form-item label="物流状态">
+              <el-form-item label="物流状态" style="display: block">
                 <el-select v-model="canEditInfo.logisticsStatus">
                   <el-option v-for="item in logisticsStatusMap" :key="item.logisticsStatus" :value="item.logisticsStatus" :label="item.label"></el-option>
                 </el-select>
@@ -101,6 +101,7 @@
         total: 1,
         listQuery: {page: 1, orderNo: null, userId: null},
         visible: false,
+        loading: true,
         logisticsStatusMap: logisticsStatusMap,
         canEditInfo: {
           logisticsStatus: null,
@@ -117,9 +118,11 @@
     created () { this.GetOrderList() },
     methods: {
       GetOrderList () {
+        this.loading = true
         getOrderList(this.listQuery).then(response => {
           this.list = response.data.orderList
           this.total = response.data.total
+          this.loading = false
         })
       },
       editInfo (row) {
@@ -148,6 +151,8 @@
             i.updateTime = formatTime()
           }
         }
+        this.canEditInfo.logisticsNo = ''
+        this.canEditInfo.logisticsCompany = ''
         this.visible = false
       },
       acceptQuery (query) {

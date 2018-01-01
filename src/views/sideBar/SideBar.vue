@@ -11,14 +11,14 @@
         <el-submenu v-else :index="item.path || item.name" :key="item.name">
           <template slot="title">
             <svg-icon v-if="item.meta&&item.meta.icon"  :icon-class="item.meta.icon"></svg-icon>
-            <span>{{item.meta.title}}</span>
+            <span>{{item.meta.title }}</span>
           </template>
           <template v-for="child in item.children">
             <side-bar v-if="child.children" :permissionRoutes="child" :key="child.path"></side-bar>
-            <router-link v-else :to="`${item.path}/${child.path}`">
+            <router-link v-else-if="!child.hidden" :to="`${item.path}/${child.path}`">
               <el-menu-item :index="child.path">
                 <svg-icon v-if="child.meta && child.meta.icon" :icon-class="child.meta.icon"></svg-icon>
-                <span v-if="child.meta && child.meta.title">{{child.meta.title}}</span>
+                <span v-if="child.meta && child.meta.title">{{child.meta.title}} </span>
               </el-menu-item>
             </router-link>
           </template>

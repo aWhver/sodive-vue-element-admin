@@ -49,8 +49,8 @@
         <el-input v-model="reason" placeholder="请输入不通过理由"></el-input>
       </div>
       <span slot="footer" class="dialog-footer">
+        <el-button @click="visible = false">取消</el-button>
         <el-button type="primary" @click="sureNoPass()">确定</el-button>
-        <el-button type="info" @click="visible = false">取消</el-button>
       </span>
     </el-dialog>
   </div>
@@ -130,6 +130,7 @@
           }
         }
         this.visible = false
+        this.reason = ''
         this.$notify({
           type: 'success',
           title: '审核不通过',
@@ -139,7 +140,9 @@
       },
       acceptQuery (query) {
         // this.listQuery = Object.assign(this.listQuery, query.listQuery)
-        this.listQuery = { ...this.listQuery, ...query.listQuery }
+        // this.listQuery = { ...this.listQuery, ...query.listQuery }
+        this.listQuery = query.listQuery
+        this.listQuery.type = this.type
       }
     },
     filters: {
