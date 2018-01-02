@@ -49,15 +49,15 @@
               </el-tag>
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="170px">
+          <el-table-column label="操作" width="190px">
             <template slot-scope="scope">
               <template v-if="scope.row.status === 0 && scope.row.certificate !== '未上传'">
                 <el-button type="info" @click="showDialog(scope.row)">注销</el-button>
-                <el-button type="success">查看证书</el-button>
+                <el-button type="success" icon="el-icon-picture">查看证书</el-button>
               </template>
               <template v-else-if="scope.row.status === 1 && scope.row.certificate !== '未上传'">
                 <el-button type="primary" @click="showDialog(scope.row)">恢复</el-button>
-                <el-button type="success">查看证书</el-button>
+                <el-button type="success" icon="el-icon-picture">查看证书</el-button>
               </template>
               <template v-else-if="scope.row.status === 1">
                 <el-button type="primary" @click="showDialog(scope.row)">恢复</el-button>

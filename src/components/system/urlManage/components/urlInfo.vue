@@ -1,8 +1,13 @@
 <template>
   <div>
     <el-header style="text-align: right">
-      <div class="filter-item">
-        <el-button type="primary" @click="handleCreate">新增<i class="el-icon-circle-plus"></i></el-button>
+      <div class="filter-container">
+        <div class="filter-item" style="float: left">
+          <el-button type="primary" @click="goBack"><svg-icon :iconClass="'back'"></svg-icon>网址管理</el-button>
+        </div>
+        <div class="filter-item">
+          <el-button type="primary" @click="handleCreate">新增<i class="el-icon-circle-plus"></i></el-button>
+        </div>
       </div>
     </el-header>
     <el-main>
@@ -128,6 +133,9 @@
         this.$nextTick(() => {
           this.$refs.urlForm.clearValidate()
         })
+      },
+      goBack () {
+        this.$router.go(-1)
       }
     },
     filters: {
