@@ -43,4 +43,7 @@ Mock.mock(/\/messageList/, 'get', getMessageListAPI.getMessageList)
 
 // system
 Mock.mock(/\/versionList/, 'get', getVersionListAPI.getVersionList)
+Mock.mock(/\/urlList/, 'get', getVersionListAPI.getUrlList)
+Mock.mock(/\/system\/url\/(\d+)-([A-Z]+)-(\d+)/, 'get', getVersionListAPI.getUrlInfo)
+Mock.mock(/\/system\/url\/createUrl/, 'get', getVersionListAPI.createUrl)
 export default Mock

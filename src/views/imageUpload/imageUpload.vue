@@ -47,7 +47,6 @@
         }
       },
       handleRemove (file) {
-        console.log(file)
         const uid = file.uid
         const listKeyArr = Object.keys(this.listObj)
         for (let i = 0; i < listKeyArr.length; i++) {

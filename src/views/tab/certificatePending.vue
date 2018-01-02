@@ -23,19 +23,19 @@
             <el-tag :type="scope.row.status | statusTagFilter">{{ scope.row.status | statusFilter}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column min-width="160px" label="操作">
+        <el-table-column min-width="180px" label="操作">
           <template slot-scope="scope">
             <template v-if="scope.row.status === 0">
               <el-button type="success" size="mini" @click="pass(scope.row)">通过</el-button>
               <el-button type="danger" size="mini" @click="noPass(scope.row)">不通过</el-button>
-              <el-button type="primary" size="mini" @click="checkPic">查看</el-button>
+              <el-button type="primary" size="mini" @click="checkPic" icon="el-icon-picture">查看</el-button>
             </template>
             <template v-else-if="scope.row.status === 1">
-              <el-button type="primary" size="mini" @click="checkPic">查看</el-button>
+              <el-button type="primary" size="mini" @click="checkPic" icon="el-icon-picture">查看</el-button>
             </template>
             <template v-else>
               <el-button type="success" size="mini" @click="pass(scope.row)">通过</el-button>
-              <el-button type="primary" size="mini" @click="checkPic">查看</el-button>
+              <el-button type="primary" size="mini" @click="checkPic" icon="el-icon-picture">查看</el-button>
             </template>
           </template>
         </el-table-column>

@@ -9,13 +9,14 @@ export function paramObj (url) {
   return JSON.parse('{"' + decodeURIComponent(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}')
 }
 
-export function formatTime () {
-  const year = new Date().getFullYear()
-  const month = new Date().getMonth() + 1
-  const day = new Date().getDate()
-  const hour = new Date().getHours()
-  const minute = new Date().getMinutes()
-  const second = new Date().getSeconds()
+export function formatTime (time) {
+  const date = time || new Date()
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+  const hour = date.getHours()
+  const minute = date.getMinutes()
+  const second = date.getSeconds()
   return `${year}-${month}-${day} ${hour}:${minute}:${second}`
 }
 

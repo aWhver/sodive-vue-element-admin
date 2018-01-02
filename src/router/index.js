@@ -251,6 +251,12 @@ export const asyncRouterMap = [
         meta: {title: '网址管理'}
       },
       {
+        path: 'url/:urlId',
+        component: _import('system/urlManage/components/urlInfo'),
+        hidden: true,
+        meta: {title: '网址信息'}
+      },
+      {
         path: 'appManage',
         name: 'appManage',
         component: _import('system/appManage/appManage'),
