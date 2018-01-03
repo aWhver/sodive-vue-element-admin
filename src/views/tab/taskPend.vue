@@ -163,7 +163,6 @@
       },
       checkDetail (row) {
         this.visibleDetail = true
-        console.log(row.taskContent)
         this.detail = {
           nickName: row.nickName,
           userId: row.userId,

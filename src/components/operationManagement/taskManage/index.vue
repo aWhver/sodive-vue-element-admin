@@ -1,9 +1,12 @@
 <template>
-  <div>taskManage</div>
+  <div>
+    <transition name="fade" mode="out-in" appear>
+      <router-view></router-view>
+    </transition>
+  </div>
 </template>
 <script>
   export default {
-    name: 'taskManage',
     data () {
       return {}
     }

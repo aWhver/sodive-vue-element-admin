@@ -5,7 +5,7 @@ import Router from 'vue-router'
 function _import (file) {
   return require('@/components/' + file + '.vue').default
 }
-// import Index from '@/components/index.vue'
+// import Index from '@/components/sidebarItem.vue'
 
 Vue.use(Router)
 
@@ -155,16 +155,17 @@ export const asyncRouterMap = [
     redirect: 'operationManagement/taskPending',
     children: [
       {
-        path: 'taskPending',
-        name: 'taskPending',
-        component: _import('operationManagement/taskPending/taskPending'),
-        meta: {title: '任务审核'}
-      },
-      {
-        path: 'taskManage',
-        name: 'taskManage',
-        component: _import('operationManagement/taskManage/taskManage'),
-        meta: {title: '任务管理'}
+        path: '/operationManagement/taskManage',
+        name: 'taskManageIndex',
+        component: _import('operationManagement/taskManage/index'),
+        meta: {title: '任务管理', icon: 'task'},
+        children: [
+          {path: 'taskPending', name: 'taskPending', component: _import('operationManagement/taskManage/children/taskPending'), meta: {title: '任务审核'}},
+          {path: 'taskManage', name: 'taskManage', component: _import('operationManagement/taskManage/children/taskManage'), meta: {title: '任务管理'}},
+          {path: 'userNumberRecord/:taskId', component: _import('operationManagement/taskManage/children/userNumberRecord'), hidden: true},
+          {path: 'editTask', name: 'editTask', component: _import('operationManagement/taskManage/children/editTask'), hidden: true, meta: {title: '新增主任务'}},
+          {path: 'editTask/:taskId', component: _import('operationManagement/taskManage/children/editTask'), hidden: true, meta: {title: '编辑主任务'}}
+        ]
       },
       {
         path: 'recommendGoods',

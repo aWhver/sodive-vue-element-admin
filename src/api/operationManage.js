@@ -10,3 +10,19 @@ export function getTaskList (listQuery) {
     params: listQuery
   })
 }
+
+export function taskManage (listQuery) {
+  return request({
+    url: 'operationManage/taskManage',
+    method: 'get',
+    params: listQuery
+  })
+}
+
+export function userNumberRecord (listQuery) {
+  return request({
+    url: `operationManage/userNumberRecord/${listQuery.taskId}`,
+    method: 'get',
+    params: listQuery
+  })
+}

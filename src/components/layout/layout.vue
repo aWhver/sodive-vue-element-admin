@@ -8,7 +8,9 @@
       </div>
       <tag-views></tag-views>
       <div class="app-main">
-        <router-view/>
+        <transition name="fade" mode="out-in" appear>
+          <router-view/>
+        </transition>
       </div>
     </div>
   </div>

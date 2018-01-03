@@ -39,7 +39,8 @@ Mock.mock(/\/contentManagement\/coverList/, 'get', getCoverListAPI.getCoverList)
 
 // operationManage
 Mock.mock(/\/operationManage\/taskList/, 'get', getTaskListAPI.getTaskList)
-
+Mock.mock(/\/operationManage\/taskManage/, 'get', getTaskListAPI.taskManage)
+Mock.mock(/\/operationManage\/userNumberRecord\/\d+/, 'get', getTaskListAPI.userNumberRecord)
 // tools
 Mock.mock(/\/massiveEmail\/emailList/, 'get', getEmailListAPI.getEmailList)
 Mock.mock(/\/massiveEmail\/\d+/, 'get', getEmailListAPI.emailDetail)

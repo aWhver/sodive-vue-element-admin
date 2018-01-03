@@ -9,6 +9,29 @@
   border-bottom: 2px solid #000;
   margin-bottom: 10px;
 }
+.el-menu--collapse {
+    .el-submenu > .el-submenu__title span {
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    visibility: hidden;
+    display: inline-block
+  }
+  .el-submenu>.el-submenu__title .el-submenu__icon-arrow {
+    display: none;
+  }
+  .el-menu .el-submenu { min-width: 0px; }
+}
+.nest-submenu {
+  .el-submenu__icon-arrow {
+    display: block!important;
+  }
+  span {
+    visibility: visible!important;
+    height: auto!important;
+    width: auto!important;
+  }
+}
 a {text-decoration: none;}
 .router-link-exact-active span {
   color: cornflowerblue;
