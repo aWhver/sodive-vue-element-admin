@@ -159,6 +159,7 @@ export const asyncRouterMap = [
         name: 'taskManageIndex',
         component: _import('operationManagement/taskManage/index'),
         meta: {title: '任务管理', icon: 'task'},
+        redirect: '/operationManagement/taskManage/taskPending',
         children: [
           {path: 'taskPending', name: 'taskPending', component: _import('operationManagement/taskManage/children/taskPending'), meta: {title: '任务审核'}},
           {path: 'taskManage', name: 'taskManage', component: _import('operationManagement/taskManage/children/taskManage'), meta: {title: '任务管理'}},

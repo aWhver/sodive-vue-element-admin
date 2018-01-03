@@ -29,9 +29,9 @@ for (let i = 0; i < 15; i++) {
     'updateTime': undefined,
     'showRegion|1': ['all', 'China', 'abroad'],
     'subTask|1-2': [
-      {'subTaskId': '@date(T)', 'subTaskName': '您的绑定用户在活动期间购买了潜伴灯', 'subStatus|1': ['effective', 'ineffective']},
-      {'subTaskId': '@date(T)', 'subTaskName': '您的绑定用户已完成订单', 'subStatus|1': ['effective', 'ineffective']},
-      {'subTaskId': '@date(T)', 'subTaskName': '用户确认收货后15天内未发生退货', 'subStatus|1': ['effective', 'ineffective']}
+      {'subTaskId': '@date(T)', 'subTaskName': '您的绑定用户在活动期间购买了潜伴灯', 'taskDescription': '@ctitle', 'subStatus|1': ['effective', 'ineffective']},
+      {'subTaskId': '@date(T)', 'subTaskName': '您的绑定用户已完成订单', 'taskDescription': '@ctitle', 'subStatus|1': ['effective', 'ineffective']},
+      {'subTaskId': '@date(T)', 'subTaskName': '用户确认收货后15天内未发生退货', 'taskDescription': '@ctitle', 'subStatus|1': ['effective', 'ineffective']}
     ],
     'status|1': ['effective', 'ineffective'],
     'userNumberRecord|10-50': [ /* 该任务参与的user数量 */

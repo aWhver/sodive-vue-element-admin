@@ -6,7 +6,7 @@
           备注：子任务状态由主任务状态决定，子任务可单独设置状态是否启用
         </div>
         <div class="filter-item fr">
-          <router-link to="taskManage/editTask">
+          <router-link to="/operationManagement/taskManage/editTask">
             <el-button type="primary">新增主任务<i class="el-icon-circle-plus"></i></el-button>
           </router-link>
         </div>
@@ -32,7 +32,7 @@
               子任务列表
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item v-for="item in  scope.row.subTask" :key="item.subTaskId">
-                  <span class="subTaskName">{{ item.subTaskName }}</span>
+                  <span class="subTaskName" @click="editTask(item)">{{ item.subTaskName }}</span>
                   <el-tag :type="item.subStatus | mainTaskTagFilter ">{{ item.subStatus | taskStatusFilter }}</el-tag>
                 </el-dropdown-item>
               </el-dropdown-menu>
@@ -48,7 +48,7 @@
           <template slot-scope="scope">
             <el-button :type="scope.row.status | mainTaskTagFilter" @click="changeSubTaskStatus(scope.row)">{{ scope.row.status | editMainTaskStatus }}</el-button>
             <el-button type="primary">推送任务</el-button>
-            <el-button type="primary">增加子任务</el-button>
+            <el-button type="primary" @click="addTask(scope.row)">增加子任务</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -56,10 +56,31 @@
     <el-footer>
       <pagination :total="total" :listQuery="listQuery" :GetList="GetTaskManage"></pagination>
     </el-footer>
+    <el-dialog title="编辑子任务" :visible.sync="visible" class="task-container">
+      <el-form :model="taskForm" ref="taskForm" :rules="taskRules" >
+        <el-form-item label="任务名称" prop="taskName">
+          <el-input v-model="taskForm.taskName"></el-input>
+        </el-form-item>
+        <el-form-item label="任务描述" prop="taskDescription">
+          <el-input v-model="taskForm.taskDescription"></el-input>
+        </el-form-item>
+        <el-form-item label="是否启用" prop="isAble">
+          <el-radio-group v-model="taskForm.isAble">
+            <el-radio label="effective">启用</el-radio>
+            <el-radio label="ineffective">不启用</el-radio>
+          </el-radio-group>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="visible = false">取消</el-button>
+        <el-button type="primary" @click="submitForm">确定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
   import { taskManage } from 'api/operationManage'
+  import { formatTime } from 'utils/index'
   const taskStatusMap = [
     {status: 'effective', label: '启用中'},
     {status: 'ineffective', label: '停用中'}
@@ -75,7 +96,21 @@
         list: null,
         total: 1,
         listQuery: {page: 1},
-        loading: true
+        loading: true,
+        visible: false,
+        isEdit: false,
+        taskForm: {
+          taskName: '',
+          taskDescription: '',
+          isAble: '',
+          subTaskId: null,
+          taskId: null
+        },
+        taskRules: {
+          taskName: [ {required: true, trigger: 'blur', message: '请输入子任务名称'} ],
+          taskDescription: [ {required: true, trigger: 'blur', message: '请对子任务进行描述'} ],
+          isAble: [ {required: true, trigger: 'blur', message: '请选择是否启用'} ]
+        }
       }
     },
     created () { this.GetTaskManage() },
@@ -96,6 +131,74 @@
           row.status = 'effective'
           row.subTask.forEach(item => { item.subStatus = 'effective' })
         }
+      },
+      editTask (item) {
+        this.visible = true
+        this.isEdit = true
+        this.taskForm.taskName = item.subTaskName
+        this.taskForm.taskDescription = item.taskDescription
+        this.taskForm.isAble = item.subStatus
+        this.taskForm.subTaskId = item.subTaskId
+      },
+      submitForm () {
+        this.$refs.taskForm.validate(valid => {
+          if (valid) {
+            if (this.isEdit) {
+              for (let [i, item] of this.list.entries()) {
+                for (let [j, v] of item.subTask.entries()) {
+                  if (v.subTaskId === this.taskForm.subTaskId) {
+                    this.list[i].updateTime = formatTime()
+                    this.list[i].subTask[j].subTaskName = this.taskForm.taskName
+                    this.list[i].subTask[j].taskDescription = this.taskForm.taskDescription
+                    this.list[i].subTask[j].subStatus = this.taskForm.isAble
+                    this.$notify({
+                      title: '编辑成功',
+                      message: '成功修改该子任务状态',
+                      type: 'success'
+                    })
+                    break
+                  }
+                }
+              }
+            } else {
+              for (let [i, item] of this.list.entries()) {
+                if (item.taskId === this.taskForm.taskId) {
+                  this.list[i].updateTime = formatTime()
+                  this.list[i].subTask.push({
+                    subTaskName: this.taskForm.taskName,
+                    taskDescription: this.taskForm.taskDescription,
+                    subStatus: this.taskForm.isAble,
+                    subTaskId: (Math.random() * 100000).toFixed(0)
+                  })
+                  this.$notify({
+                    title: '创建成功',
+                    message: '成功创建该子任务状态',
+                    type: 'success'
+                  })
+                  break
+                }
+              }
+            }
+          }
+          this.visible = false
+        })
+      },
+      resetForm () {
+        this.taskForm = {
+          taskName: '',
+          taskDescription: '',
+          isAble: '',
+          taskId: null
+        }
+      },
+      addTask (row) {
+        this.resetForm()
+        this.$nextTick(() => {
+          this.$refs.taskForm.clearValidate()
+        })
+        this.taskForm.taskId = row.taskId // 获取要修改的主任务的ID
+        this.isEdit = false
+        this.visible = true
       }
     },
     filters: {
@@ -128,12 +231,16 @@
     }
   }
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .task-manage-container a, .subTaskName {
   color: #52a4de
 }
 .el-dropdown-menu {
   a { color: #52a4de; }
   .el-tag { cursor: default; }
+}
+.task-container .el-dialog{
+  width: 400px;
+  &__footer {text-align: center}
 }
 </style>
