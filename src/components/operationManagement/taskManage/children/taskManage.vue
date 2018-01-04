@@ -44,11 +44,19 @@
             <el-tag :type="scope.row.status | mainTaskTagFilter ">{{ scope.row.status | mainTaskFilter }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="330px">
+        <el-table-column label="操作" width="130px">
           <template slot-scope="scope">
-            <el-button :type="scope.row.status | mainTaskTagFilter" @click="changeSubTaskStatus(scope.row)">{{ scope.row.status | editMainTaskStatus }}</el-button>
-            <el-button type="primary">推送任务</el-button>
-            <el-button type="primary" @click="addTask(scope.row)">增加子任务</el-button>
+            <el-dropdown type="primary">
+              <el-button type="primary">
+                操作<i class="el-icon-arrow-down el-icon--right"></i>
+              </el-button>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item><el-button :type="scope.row.status | mainTaskTagFilter" @click="changeSubTaskStatus(scope.row)">{{ scope.row.status | editMainTaskStatus }}</el-button></el-dropdown-item>
+                <el-dropdown-item><el-button type="text" @click="visible1 = true">推送消息</el-button></el-dropdown-item>
+                <el-dropdown-item><router-link :to="`/operationManagement/taskManage/editTask/${scope.row.taskId}`"><el-button type="text">编辑主任务</el-button></router-link></el-dropdown-item>
+                <el-dropdown-item><el-button type="text" @click="addTask(scope.row)">增加子任务</el-button></el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </template>
         </el-table-column>
       </el-table>
@@ -56,7 +64,18 @@
     <el-footer>
       <pagination :total="total" :listQuery="listQuery" :GetList="GetTaskManage"></pagination>
     </el-footer>
-    <el-dialog title="编辑子任务" :visible.sync="visible" class="task-container">
+    <el-dialog title="推送消息" :visible.sync="visible1">
+      <el-radio-group v-model="push">
+        <el-radio label="all">全部</el-radio>
+        <el-radio label="China">中国</el-radio>
+        <el-radio label="abroad">海外</el-radio>
+      </el-radio-group>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="visible1 = false">取消</el-button>
+        <el-button type="primary" @click="pushInfo">确定</el-button>
+      </span>
+    </el-dialog>
+    <el-dialog title="编辑/新增子任务" :visible.sync="visible" class="task-container">
       <el-form :model="taskForm" ref="taskForm" :rules="taskRules" >
         <el-form-item label="任务名称" prop="taskName">
           <el-input v-model="taskForm.taskName"></el-input>
@@ -98,7 +117,9 @@
         listQuery: {page: 1},
         loading: true,
         visible: false,
+        visible1: false,
         isEdit: false,
+        push: '',
         taskForm: {
           taskName: '',
           taskDescription: '',
@@ -130,6 +151,14 @@
         } else {
           row.status = 'effective'
           row.subTask.forEach(item => { item.subStatus = 'effective' })
+        }
+      },
+      pushInfo () {
+        if (this.push === '') {
+          this.$message.warning('请选择推送对象')
+        } else {
+          this.$message.success('推送成功')
+          this.visible1 = false
         }
       },
       editTask (item) {
@@ -179,8 +208,8 @@
                 }
               }
             }
+            this.visible = false
           }
-          this.visible = false
         })
       },
       resetForm () {

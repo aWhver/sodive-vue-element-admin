@@ -25,8 +25,13 @@ for (let i = 0; i < 15; i++) {
   taskManage.push(Mock.mock({
     'taskId': '@date(T)',
     'taskName': '@ctitle',
+    'taskDescription': '@title',
+    'detail': '@title',
+    'top|1': ['yes', 'no'],
+    'taskCircle|1': ['noLimit', 'limit'],
     'createTime': '@datetime',
     'updateTime': undefined,
+    'datetimeMerge': ['@datetime', '@datetime'],
     'showRegion|1': ['all', 'China', 'abroad'],
     'subTask|1-2': [
       {'subTaskId': '@date(T)', 'subTaskName': '您的绑定用户在活动期间购买了潜伴灯', 'taskDescription': '@ctitle', 'subStatus|1': ['effective', 'ineffective']},
@@ -86,5 +91,16 @@ export default {
       total: filteredList.length,
       code: 2
     }
+  },
+  addTask: config => {
+    taskManage.unshift(JSON.parse(config.body))
+    return {
+      code: 2
+    }
+  },
+  editTask: config => {
+    let filteredTask = taskManage.filter(item => config.body === item.taskId)[0]
+    if (filteredTask.taskCircle === 'noLimit') filteredTask.datetimeMerge = []
+    return { filteredTask: filteredTask, code: 2 }
   }
 }

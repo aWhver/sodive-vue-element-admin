@@ -26,3 +26,34 @@ export function userNumberRecord (listQuery) {
     params: listQuery
   })
 }
+export function addTask (taskForm) {
+  return request({
+    url: 'operationManage/addTask',
+    method: 'get',
+    data: taskForm
+  })
+}
+
+export function editTask (taskId) {
+  return request({
+    url: `operationManage/editTask/${taskId}`,
+    method: 'get',
+    data: taskId
+  })
+}
+
+export function getRecommendProduction (listQuery) {
+  return request({
+    url: `operationManage/recommendProduction`,
+    method: 'get',
+    params: listQuery
+  })
+}
+
+export function addProduction (productionForm) {
+  return request({
+    url: `operationManage/addProduction`,
+    method: 'get',
+    data: productionForm
+  })
+}

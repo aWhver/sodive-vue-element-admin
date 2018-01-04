@@ -15,6 +15,7 @@ import getEmailListAPI from './tools/massiveEmail'
 import getMessageListAPI from './tools/messageNotification'
 import getVersionListAPI from './system/system'
 import getTaskListAPI from './operationManage/taskPending'
+import operationManageAPI from './operationManage/operationManage'
 
 Mock.mock(/\/user\/login/, 'post', loginAPI.login)
 Mock.mock(/\/user\/userInfo/, 'post', loginAPI.getUserInfo)
@@ -41,6 +42,11 @@ Mock.mock(/\/contentManagement\/coverList/, 'get', getCoverListAPI.getCoverList)
 Mock.mock(/\/operationManage\/taskList/, 'get', getTaskListAPI.getTaskList)
 Mock.mock(/\/operationManage\/taskManage/, 'get', getTaskListAPI.taskManage)
 Mock.mock(/\/operationManage\/userNumberRecord\/\d+/, 'get', getTaskListAPI.userNumberRecord)
+Mock.mock(/\/operationManage\/addTask/, 'get', getTaskListAPI.addTask)
+Mock.mock(/\/operationManage\/editTask\/\d+/, 'get', getTaskListAPI.editTask)
+Mock.mock(/\/operationManage\/recommendProduction/, 'get', operationManageAPI.getRecommendProduction)
+Mock.mock(/\/operationManage\/addProduction/, 'get', operationManageAPI.addProduction)
+
 // tools
 Mock.mock(/\/massiveEmail\/emailList/, 'get', getEmailListAPI.getEmailList)
 Mock.mock(/\/massiveEmail\/\d+/, 'get', getEmailListAPI.emailDetail)
