@@ -57,3 +57,27 @@ export function addProduction (productionForm) {
     data: productionForm
   })
 }
+
+export function getSodiveList (listQuery) {
+  return request({
+    url: 'operationManage/sodiveList',
+    method: 'get',
+    params: listQuery
+  })
+}
+
+export function editSodive (sodiveForm, routeId) {
+  return request({
+    url: `operationManage/editSodive/${routeId}`,
+    method: 'get',
+    data: { sodiveForm, routeId }
+  })
+}
+
+export function getSodive (routeId) {
+  return request({
+    url: `operationManage/getSodive/${routeId}`,
+    method: 'get',
+    data: { routeId }
+  })
+}

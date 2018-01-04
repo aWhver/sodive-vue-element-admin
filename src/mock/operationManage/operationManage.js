@@ -25,6 +25,21 @@ for (let i = 0; i < count; i++) {
   }))
 }
 
+let sodiveList = []
+for (let i = 0; i < 6; i++) {
+  sodiveList.push(Mock.mock({
+    'id': '2018@integer(1000000, 9999999)',
+    'programa|1': ['sodive'],
+    'title': '@title',
+    'description': '@ctitle',
+    'top|1': ['yes', 'no'],
+    'programaImage': [{name: '@title', url: '@image(100x100, @color, sodive)'}],
+    'createTime': '@datetime',
+    'status|1': ['published', 'draft'],
+    'detail': '@ctitle'
+  }))
+}
+
 export default {
   getRecommendProduction: config => {
     const { page = 1, limit = 10, sortId, productionName } = paramObj(config.url)
@@ -44,6 +59,42 @@ export default {
     recommendProduction.unshift(JSON.parse(config.body))
     return {
       info: 'success',
+      code: 2
+    }
+  },
+  getSodiveList: config => {
+    const { page = 1, limit = 10, status } = paramObj(config.url)
+    let mockList = sodiveList.filter(item => {
+      if (status && status !== item.status) return false
+      return true
+    })
+    const pageList = mockList.filter((item, index) => index < limit * page && index >= limit * (page - 1))
+    return {
+      total: mockList.length,
+      sodiveList: pageList,
+      code: 2
+    }
+  },
+  editSodive: config => {
+    const data = JSON.parse(config.body)
+    const routeId = data.routeId
+    if (routeId === '14') {
+      sodiveList.unshift(data.sodiveForm)
+    } else {
+      sodiveList.forEach(item => {
+        if (item.id === data.sodiveForm.id) {
+          console.log(data.sodiveForm)
+          item = config.body.sodiveForm
+        }
+      })
+    }
+    return {code: 2}
+  },
+  getSodive: config => {
+    const data = JSON.parse(config.body)
+    const sodiveDetail = sodiveList.filter(item => item.id === data.routeId)[0]
+    return {
+      sodiveDetail: sodiveDetail,
       code: 2
     }
   }

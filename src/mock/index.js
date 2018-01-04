@@ -46,6 +46,9 @@ Mock.mock(/\/operationManage\/addTask/, 'get', getTaskListAPI.addTask)
 Mock.mock(/\/operationManage\/editTask\/\d+/, 'get', getTaskListAPI.editTask)
 Mock.mock(/\/operationManage\/recommendProduction/, 'get', operationManageAPI.getRecommendProduction)
 Mock.mock(/\/operationManage\/addProduction/, 'get', operationManageAPI.addProduction)
+Mock.mock(/\/operationManage\/sodiveList/, 'get', operationManageAPI.getSodiveList)
+Mock.mock(/\/operationManage\/editSodive\/\d+/, 'get', operationManageAPI.editSodive)
+Mock.mock(/\/operationManage\/getSodive\/\d+/, 'get', operationManageAPI.getSodive)
 
 // tools
 Mock.mock(/\/massiveEmail\/emailList/, 'get', getEmailListAPI.getEmailList)

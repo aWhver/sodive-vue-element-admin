@@ -180,6 +180,7 @@ export const asyncRouterMap = [
         component: _import('operationManagement/sodiveCollege/sodiveCollege'),
         meta: {title: 'sodive学院'}
       },
+      {path: 'sodiveCollege/sodive/:id', component: _import('operationManagement/sodiveCollege/editSodive'), hidden: true, meta: {title: '编辑sodive学院'}},
       {
         path: 'questionFeedback',
         name: 'questionFeedback',
