@@ -13,7 +13,7 @@
           <el-radio label="no">否</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="缩略图">
+      <el-form-item label="缩略图" prop="programaImage">
         <el-upload action="https://httpbin.org/post" list-type="picture-card" :file-list="sodiveForm.programaImage" :on-success="handleSuccess">
           <i class="el-icon-plus"></i>
         </el-upload>
@@ -27,7 +27,7 @@
         <tinymce :height="300" v-model="sodiveForm.detail"></tinymce>
       </el-form-item>
       <el-form-item style="text-align: center">
-        <el-button>重置</el-button>
+        <el-button @click="resetForm">重置</el-button>
         <el-button type="primary" @click="submitForm">发布</el-button>
       </el-form-item>
     </el-form>
@@ -57,7 +57,7 @@
         sodiveRules: {
           title: [{required: true, trigger: 'blur', message: '文章标题不能为空'}],
           description: [{required: true, trigger: 'blur', message: '文章描述不能为空'}],
-          // programaImage: [{required: true, trigger: 'blur', message: '请上传文章缩略图'}],
+          programaImage: [{required: true, trigger: 'blur', message: '请上传文章缩略图'}],
           programa: [{required: true, trigger: 'blur', message: '请选择文章栏目'}],
           detail: [{required: true, trigger: 'blur', message: '文章内容不能为空'}]
         }
@@ -66,6 +66,10 @@
     created () { this.GetSodive() },
     methods: {
       submitForm () {
+        if (this.sodiveForm.programaImage.length === 0) {
+          this.$message.warning('请等待图片上传成功!')
+          return
+        }
         this.$refs.sodiveForm.validate(valid => {
           if (valid) {
             this.sodiveForm.createTime = formatTime()
@@ -77,7 +81,25 @@
       },
       GetSodive () {
         getSodive(this.$route.params.id).then(response => {
-          this.sodiveForm = response.data.sodiveDetail
+          if (response.data.sodiveDetail !== undefined) {
+            this.sodiveForm = response.data.sodiveDetail
+          }
+        })
+      },
+      resetForm () {
+        this.sodiveForm = {
+          id: (Math.random() * 100000000).toFixed(0),
+          title: '',
+          description: '',
+          top: '',
+          programaImage: [],
+          createTime: '',
+          programa: '',
+          detail: '',
+          status: 'draft'
+        }
+        this.$nextTick(() => {
+          this.$refs.sodiveForm.clearValidate()
         })
       },
       handleSuccess (response, file) {

@@ -44,7 +44,7 @@
     <el-footer>
       <pagination :total="total" :listQuery="listQuery" :GetList="GetRecommendProduction"></pagination>
     </el-footer>
-    <el-dialog title="新增/编辑" :visible.sync="visible">
+    <el-dialog title="新增/编辑" :visible.sync="visible" center>
       <el-form inline label-width="120px" label-position="right" :model="productionForm" ref="productionForm" :rules="productionRules">
         <el-form-item label="货品号" prop="productionNo">
           <el-input v-model="productionForm.productionNo" clearable></el-input>
@@ -138,7 +138,6 @@
             if (this.isEdit) {
               for (const [i, item] of this.list.entries()) {
                 if (item.id === this.productionForm.id) {
-                  console.log(this.productionForm)
                   this.list.splice(i, 1, this.productionForm)
                   this.$message.success('发布成功')
                   break

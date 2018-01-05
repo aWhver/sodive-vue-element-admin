@@ -16,6 +16,7 @@ import getMessageListAPI from './tools/messageNotification'
 import getVersionListAPI from './system/system'
 import getTaskListAPI from './operationManage/taskPending'
 import operationManageAPI from './operationManage/operationManage'
+import getQuestionListAPI from './operationManage/questionFeedback'
 
 Mock.mock(/\/user\/login/, 'post', loginAPI.login)
 Mock.mock(/\/user\/userInfo/, 'post', loginAPI.getUserInfo)
@@ -49,6 +50,7 @@ Mock.mock(/\/operationManage\/addProduction/, 'get', operationManageAPI.addProdu
 Mock.mock(/\/operationManage\/sodiveList/, 'get', operationManageAPI.getSodiveList)
 Mock.mock(/\/operationManage\/editSodive\/\d+/, 'get', operationManageAPI.editSodive)
 Mock.mock(/\/operationManage\/getSodive\/\d+/, 'get', operationManageAPI.getSodive)
+Mock.mock(/\/operationManage\/questionList/, 'get', getQuestionListAPI.getQuestionList)
 
 // tools
 Mock.mock(/\/massiveEmail\/emailList/, 'get', getEmailListAPI.getEmailList)

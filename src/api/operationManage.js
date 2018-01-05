@@ -81,3 +81,11 @@ export function getSodive (routeId) {
     data: { routeId }
   })
 }
+
+export function getQuestionList (listQuery) {
+  return request({
+    url: 'operationManage/questionList',
+    method: 'get',
+    params: listQuery
+  })
+}

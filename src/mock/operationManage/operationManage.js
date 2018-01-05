@@ -81,10 +81,9 @@ export default {
     if (routeId === '14') {
       sodiveList.unshift(data.sodiveForm)
     } else {
-      sodiveList.forEach(item => {
+      sodiveList.forEach((item, index) => {
         if (item.id === data.sodiveForm.id) {
-          console.log(data.sodiveForm)
-          item = config.body.sodiveForm
+          sodiveList.splice(index, 1, data.sodiveForm)
         }
       })
     }
