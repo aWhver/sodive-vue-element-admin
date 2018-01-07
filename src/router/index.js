@@ -49,31 +49,31 @@ export const asyncRouterMap = [
         path: 'coach',
         name: 'coach',
         component: _import('userManage/coach/coach'),
-        meta: {title: '潜水教练'}
+        meta: {title: '潜水教练', keepalive: true}
       },
       {
         path: 'user',
         name: 'user',
         component: _import('userManage/user/user'),
-        meta: {title: '普通用户'}
+        meta: {title: '普通用户', keepalive: true}
       },
       {
         path: 'coachExamine',
         name: 'coachExamine',
         component: _import('userManage/coachExamine/coachExamine'),
-        meta: {title: '教练证件审核'}
+        meta: {title: '教练证件审核', keepalive: true}
       },
       {
         path: 'userExamine',
         name: 'userExamine',
         component: _import('userManage/userExamine/userExamine'),
-        meta: {title: '用户证件审核'}
+        meta: {title: '用户证件审核', keepalive: true}
       },
       {
         path: 'payAccount',
         name: 'payAccount',
         component: _import('userManage/payAccount/payAccount'),
-        meta: {title: '支付账号'}
+        meta: {title: '支付账号', keepalive: true}
       }
     ]
   },
@@ -185,7 +185,7 @@ export const asyncRouterMap = [
         path: 'questionFeedback',
         name: 'questionFeedback',
         component: _import('operationManagement/questionFeedback/questionFeedback'),
-        meta: {title: '问题反馈'}
+        meta: {title: '问题反馈', keepalive: true}
       },
       {
         path: 'shareStatistics',
@@ -197,7 +197,7 @@ export const asyncRouterMap = [
         path: 'adManage',
         name: 'adManage',
         component: _import('operationManagement/adManage/adManage'),
-        meta: {title: '广告位管理'}
+        meta: {title: '广告位管理', keepalive: true}
       },
       {
         path: 'duihuanquan',

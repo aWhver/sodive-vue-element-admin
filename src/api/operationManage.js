@@ -89,3 +89,28 @@ export function getQuestionList (listQuery) {
     params: listQuery
   })
 }
+
+export function getStatisticsList (listQuery) {
+  return request({
+    url: 'operationManage/statisticsList',
+    method: 'get',
+    params: listQuery
+  })
+}
+
+export function getDetailList (listQuery, dateRange) {
+  return request({
+    url: 'operationManage/detailList',
+    method: 'get',
+    params: listQuery,
+    data: dateRange
+  })
+}
+
+export function getBannerList (listQuery) {
+  return request({
+    url: 'operationManage/bannerList',
+    method: 'get',
+    params: listQuery
+  })
+}

@@ -2,13 +2,13 @@
   <div>
     <certificate-filter v-on:sendListQuery="acceptQuery" :GetList="GetQuestionList"></certificate-filter>
     <el-main>
-      <el-table :data="list" border style="text-align: center">
-        <el-table-column label="用户问题" align="left" min-width="260px" style="word-break: keep-all">
+      <el-table :data="list" border v-loading="loading" element-loading-text="小主,我需要时间..." style="text-align: center">
+        <el-table-column label="用户问题" align="left" min-width="200px" style="word-break: keep-all">
           <template slot-scope="scope">
             <el-button type="text" @click.native="answerQuestion(scope.row)">{{ scope.row.question.content }}</el-button>
           </template>
         </el-table-column>
-        <el-table-column label="提问人ID" prop="userId" width="150px"></el-table-column>
+        <el-table-column label="提问人ID" prop="userId" width="120px"></el-table-column>
         <el-table-column label="邮箱" prop="email"></el-table-column>
         <el-table-column label="昵称" prop="nickName" width="120px"></el-table-column>
         <el-table-column label="创建时间" prop="createTime" width="190px"></el-table-column>
@@ -55,11 +55,11 @@
           <div ref="pictureItem1" v-for="(item, index) in questionContent.questionImage" :key="index" :class="{'active': currentIndex === index}"><img :src="item"></div>
         </div>
         <div class="control">
-          <span class="left-btn btn" @click="prev"><i class="el-icon-arrow-left"></i></span>
-          <span class="right-btn btn" @click="next"><i class="el-icon-arrow-right"></i></span>
+          <span class="left-btn btn" @click="prev"><svg-icon :iconClass="'arrowleftcircle'"></svg-icon></span>
+          <span class="right-btn btn" @click="next"><svg-icon :iconClass="'arrowrightcircle'"></svg-icon></span>
         </div>
       </div>
-      <span class="close" @click="closePhotoSwipe"><i class="el-icon-circle-close-outline"></i></span>
+      <span class="close" @click="closePhotoSwipe"><svg-icon :iconClass="'close'"></svg-icon></span>
     </div>
   </div>
 </template>
@@ -74,6 +74,7 @@
         total: 1,
         listQuery: {page: 1},
         visible: false,
+        loading: true,
         questionContent: {
           id: '',
           content: '',
@@ -93,15 +94,20 @@
       visible (value) {
         if (value) {
           this.calculatePictureSize('pictureItem')
+        } else {
+          const oPhotoSwipe = document.getElementsByClassName('photoSwipe')[0]
+          oPhotoSwipe.style.display = 'none'
         }
       }
     },
     methods: {
       GetQuestionList () {
+        this.loading = true
         this.visible = true // el-dialog首次进入不会渲染body部分,点击第一次弹窗的时候图片无法缩小,所以在加载列表的时候先显示一次,加载完在关掉，进入该路由会有闪的画面,待优化
         getQuestionList(this.listQuery).then(response => {
           this.list = response.data.questionList
           this.total = response.data.total
+          this.loading = false
           this.visible = false
         })
       },
@@ -136,24 +142,21 @@
       calculatePictureSize (ref) {
         const pictureItems = this.$refs[ref]
         this.$nextTick(() => {
-          if (this.visible === true) {
-            console.log(ref)
-            if (pictureItems !== undefined) {
-              const pictureItemWidth = pictureItems[0].offsetWidth // 图片父级width
-              for (let pictureItem of pictureItems) {
-                let pictureWidth = pictureItem.querySelector('img').offsetWidth
-                let pictureHeight = pictureItem.querySelector('img').offsetHeight
-                if (pictureWidth >= pictureHeight) {
-                  pictureItem.querySelector('img').style.height = pictureItemWidth * pictureHeight / pictureWidth + 'px'
-                  pictureItem.querySelector('img').style.width = pictureItemWidth + 'px'
-                  pictureItem.querySelector('img').style.marginTop = -(pictureItemWidth * pictureHeight / pictureWidth) / 2 + 'px'
-                  pictureItem.querySelector('img').style.marginLeft = -pictureItemWidth / 2 + 'px'
-                } else {
-                  pictureItem.querySelector('img').style.width = pictureItemWidth * pictureWidth / pictureHeight + 'px'
-                  pictureItem.querySelector('img').style.height = pictureItemWidth + 'px'
-                  pictureItem.querySelector('img').style.marginTop = -pictureItemWidth / 2 + 'px'
-                  pictureItem.querySelector('img').style.marginLeft = -(pictureItemWidth * pictureWidth / pictureHeight) / 2 + 'px'
-                }
+          if (pictureItems !== undefined) {
+            const pictureItemWidth = pictureItems[0].offsetWidth // 图片父级width
+            for (let pictureItem of pictureItems) {
+              let pictureWidth = pictureItem.querySelector('img').offsetWidth
+              let pictureHeight = pictureItem.querySelector('img').offsetHeight
+              if (pictureWidth >= pictureHeight) {
+                pictureItem.querySelector('img').style.height = pictureItemWidth * pictureHeight / pictureWidth + 'px'
+                pictureItem.querySelector('img').style.width = pictureItemWidth + 'px'
+                pictureItem.querySelector('img').style.marginTop = -(pictureItemWidth * pictureHeight / pictureWidth) / 2 + 'px'
+                pictureItem.querySelector('img').style.marginLeft = -pictureItemWidth / 2 + 'px'
+              } else {
+                pictureItem.querySelector('img').style.width = pictureItemWidth * pictureWidth / pictureHeight + 'px'
+                pictureItem.querySelector('img').style.height = pictureItemWidth + 'px'
+                pictureItem.querySelector('img').style.marginTop = -pictureItemWidth / 2 + 'px'
+                pictureItem.querySelector('img').style.marginLeft = -(pictureItemWidth * pictureWidth / pictureHeight) / 2 + 'px'
               }
             }
           }
@@ -238,18 +241,16 @@
   .photoSwipe {
     display: none;
     position: fixed;
-    height: 600px;
-    width: 900px;
+    width: 800px;
     z-index: 99999;
-    top: 50%;
-    margin-top: -300px;
+    top: 15vh;
     left: 50%;
-    margin-left: -450px;
+    margin-left: -400px;
     background: #000;
     &-container {
-      width: 500px;
-      height: 500px;
-      margin: 50px auto;
+      width: 400px;
+      height: 400px;
+      margin: 20px auto;
       position: relative;
       .picture-container div {
         position: absolute;
@@ -272,20 +273,19 @@
         height: 80px;
         top: 50%;
         transform: translateY(-50%);
-        background: #fff;
         cursor: pointer;
         text-align: center;
         line-height: 80px;
-        &.left-btn {left: -50px;}
-        &.right-btn {right: -50px;}
+        &.left-btn {left: -60px;}
+        &.right-btn {right: -60px;}
       }
     }
     .close {
       position: absolute;
       right: 0;
       top: 0;
-      background: #fff;
       cursor: pointer;
     }
+    .svg-icon {width: 2.5em; height: 2.5em;margin-right: 0;}
   }
 </style>

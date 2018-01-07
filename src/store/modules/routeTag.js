@@ -3,11 +3,15 @@
  */
 export default {
   state: {
-    visitedTags: []
+    visitedTags: [],
+    cacheTags: []
   },
   mutations: {
     ADD_VISIBLE_TAG (state, tag) {
       if (state.visitedTags.some(v => v.path === tag.path && tag.name)) return
+      if (tag.meta && tag.meta.keepalive) {
+        state.cacheTags.push(tag.name)
+      }
       state.visitedTags = [
         ...state.visitedTags,
         {
@@ -24,6 +28,13 @@ export default {
           break
         }
       }
+
+      for (const i of state.cacheTags) {
+        if (i === tag.name) {
+          const index = state.cacheTags.indexOf(i)
+          state.cacheTags.splice(index, 1)
+        }
+      }
     },
     DEL_OTHER_TAG (state, tag) {
       for (const [i, v] of state.visitedTags.entries()) {
@@ -32,9 +43,18 @@ export default {
           break
         }
       }
+
+      for (const i of state.cacheTags) {
+        if (i === tag.name) {
+          const index = state.cacheTags.indexOf(i)
+          state.cachedViews = state.cacheTags.slice(index, i + 1)
+          break
+        }
+      }
     },
     DEL_ALL_TAG (state) {
       state.visitedTags = []
+      state.cacheTags = []
     }
   },
   actions: {

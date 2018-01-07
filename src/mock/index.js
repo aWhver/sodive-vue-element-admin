@@ -17,6 +17,8 @@ import getVersionListAPI from './system/system'
 import getTaskListAPI from './operationManage/taskPending'
 import operationManageAPI from './operationManage/operationManage'
 import getQuestionListAPI from './operationManage/questionFeedback'
+import getShareListAPI from './operationManage/shareStatistics'
+import getBannerListAPI from './operationManage/adManage'
 
 Mock.mock(/\/user\/login/, 'post', loginAPI.login)
 Mock.mock(/\/user\/userInfo/, 'post', loginAPI.getUserInfo)
@@ -51,6 +53,9 @@ Mock.mock(/\/operationManage\/sodiveList/, 'get', operationManageAPI.getSodiveLi
 Mock.mock(/\/operationManage\/editSodive\/\d+/, 'get', operationManageAPI.editSodive)
 Mock.mock(/\/operationManage\/getSodive\/\d+/, 'get', operationManageAPI.getSodive)
 Mock.mock(/\/operationManage\/questionList/, 'get', getQuestionListAPI.getQuestionList)
+Mock.mock(/\/operationManage\/statisticsList/, 'get', getShareListAPI.getStatisticsList)
+Mock.mock(/\/operationManage\/detailList/, 'get', getShareListAPI.getDetailList)
+Mock.mock(/\/operationManage\/bannerList/, 'get', getBannerListAPI.getBannerList)
 
 // tools
 Mock.mock(/\/massiveEmail\/emailList/, 'get', getEmailListAPI.getEmailList)

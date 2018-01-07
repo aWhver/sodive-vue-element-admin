@@ -3,6 +3,7 @@
  */
 export default {
   visitedTags: state => state.routeTag.visitedTags,
+  cacheTags: state => state.routeTag.cacheTags,
   permissionRoutes: state => state.permission.routes,
   addRouters: state => state.permission.addRouters,
   token: state => state.user.token,

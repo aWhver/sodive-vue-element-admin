@@ -8,9 +8,11 @@
       </div>
       <tag-views></tag-views>
       <div class="app-main">
-        <transition name="fade" mode="out-in" appear>
-          <router-view/>
-        </transition>
+        <keep-alive :include="cacheTags">
+          <transition name="fade" mode="out-in" appear>
+            <router-view/>
+          </transition>
+        </keep-alive>
       </div>
     </div>
   </div>
@@ -20,7 +22,7 @@
   import Hamburger from 'views/hamburger/Hamburger'
   import BreakCrumb from 'views/breakCrumb/BreakCrumb'
   import tagViews from 'views/routeTag/Tag'
-  import {mapState} from 'vuex'
+  import {mapState, mapGetters} from 'vuex'
   export default {
     name: 'app',
     components: {
@@ -31,8 +33,10 @@
     },
     computed: {
       ...mapState([
-        'isCollapse',
-        'isLogin'
+        'isCollapse'
+      ]),
+      ...mapGetters([
+        'cacheTags'
       ])
     }
   }
