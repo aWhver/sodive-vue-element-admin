@@ -53,7 +53,6 @@
               let pictureWidth = oImg.offsetWidth
               let pictureHeight = oImg.offsetHeight
               if (pictureWidth >= pictureHeight) {
-                console.log(pictureItems[0])
                 oImg.style.height = pictureItemWidth * pictureHeight / pictureWidth + 'px'
                 oImg.style.width = pictureItemWidth + 'px'
                 oImg.style.marginTop = -(pictureItemWidth * pictureHeight / pictureWidth) / 2 + 'px'

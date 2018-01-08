@@ -5,6 +5,9 @@
         <div class="filter-item">
           <el-button type="primary" icon="el-icon-search" @click="searchBtn()">搜索</el-button>
         </div>
+        <div class="filter-item">
+          <el-button type="primary" icon="el-icon-download" :loading="downloadLoading" @click="excelExport">Excel</el-button>
+        </div>
       </multiplicationFilter>
       <el-main>
         <el-table border :data="list" style="width:100%" v-loading="loading" element-loading-text="小主,我需要时间...">
@@ -106,7 +109,8 @@
           coachId: null
         },
         promptMap: ['恢复教练成功', '注销教练成功'],
-        imageList: []
+        imageList: [],
+        downloadLoading: false
       }
     },
     created () {
@@ -146,6 +150,28 @@
       searchBtn () {
         this.listQuery.page = 1
         this.GetCoachList()
+      },
+      excelExport () {
+        this.downloadLoading = true
+        import('@/vendor/Export2Excel').then(excel => {
+          const tHeader = ['教练ID', '昵称', '地区', '积分', '注册时间', '证书', '绑定用户', '合伙人', '状态']
+          const filterVal = ['userId', 'nickName', 'countryName', 'point', 'registerTime', 'certificate', 'bindUser', 'agent', 'status']
+          const data = this.formatJson(filterVal, this.list)
+          excel.export_json_to_excel(tHeader, data, 'coach-list')
+          this.downloadLoading = false
+        })
+      },
+      formatJson (filterVal, jsonData) {
+        const statusMap = ['正常', '注销']
+        return jsonData.map(v => filterVal.map(j => {
+          if (j === 'countryName') {
+            return countryObj[v[j]]
+          } else if (j === 'status') {
+            return statusMap[v[j]]
+          } else {
+            return v[j]
+          }
+        }))
       },
       acceptQuery (query) {
         this.listQuery = query.listQuery

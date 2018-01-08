@@ -40,7 +40,8 @@ module.exports = {
       'views': path.resolve(__dirname, '../src/views'),
       'router': path.resolve(__dirname, '../src/router'),
       'utils': path.resolve(__dirname, '../src/utils'),
-      'api': path.resolve(__dirname, '../src/api')
+      'api': path.resolve(__dirname, '../src/api'),
+      'vendor': path.resolve(__dirname, '../src/vendor')
     }
   },
   module: {

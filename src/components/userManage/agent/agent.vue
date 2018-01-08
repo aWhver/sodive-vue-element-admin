@@ -6,6 +6,9 @@
           <el-button type="primary" icon="el-icon-search" @click="searchBtn()">搜索</el-button>
         </div>
         <div class="filter-item">
+          <el-button type="primary" icon="el-icon-download" :loading="downloadLoading" @click="excelExport">Excel</el-button>
+        </div>
+        <div class="filter-item">
           <el-button type="primary" icon="el-icon-edit" @click="agentVisible = true">新增合伙人</el-button>
         </div>
       </multiplicationFilter>
@@ -139,6 +142,7 @@
 <script>
   import { getAgentList, addAgent } from 'api/userManage'
   import multiplicationFilter from 'views/multiplicationFilter/multiplicationFilter'
+  // import { formatTimeCustom } from 'utils/index'
   let countryObj = {}
   export default {
     name: 'agent',
@@ -166,7 +170,8 @@
           countryName: '',
           status: 0
         },
-        countryMap: []
+        countryMap: [],
+        downloadLoading: false
       }
     },
     created () {
@@ -249,6 +254,28 @@
       handleCurrentChange (val) {
         this.listQuery.page = val
         this.GetAgentList()
+      },
+      excelExport () {
+        this.downloadLoading = true
+        import('@/vendor/Export2Excel').then(excel => {
+          const tHeader = ['id', '昵称', '积分', '注册时间', '国籍', '下属教练', '状态']
+          const filterVal = ['userId', 'nickName', 'point', 'registerTime', 'countryName', 'ownCoach', 'status']
+          const data = this.formatJson(filterVal, this.list)
+          excel.export_json_to_excel(tHeader, data, 'agent-list')
+          this.downloadLoading = false
+        })
+      },
+      formatJson (filterVal, jsonData) {
+        const statusMap = ['正常', '注销']
+        return jsonData.map(v => filterVal.map(j => {
+          if (j === 'countryName') {
+            return countryObj[v[j]]
+          } else if (j === 'status') {
+            return statusMap[v[j]]
+          } else {
+            return v[j]
+          }
+        }))
       },
       acceptQuery (query) {
         this.listQuery = query.listQuery
