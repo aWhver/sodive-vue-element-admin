@@ -22,7 +22,8 @@ for (let i = 0; i < count; i++) {
     'sex|1': ['male', 'female', 'unknow'],
     'email': '@email',
     'phoneNo|1': ['13798254451', '18873283031', '13578941256', '18163910930', '15678941273'],
-    'coachAvatar': `@image(60x60, ${randomColor()}, sodive)`
+    'coachAvatar': `@image(60x60, ${randomColor()}, sodive)`,
+    'image|2-3': ['@image']
   }))
 }
 

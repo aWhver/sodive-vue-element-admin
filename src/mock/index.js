@@ -56,6 +56,7 @@ Mock.mock(/\/operationManage\/questionList/, 'get', getQuestionListAPI.getQuesti
 Mock.mock(/\/operationManage\/statisticsList/, 'get', getShareListAPI.getStatisticsList)
 Mock.mock(/\/operationManage\/detailList/, 'get', getShareListAPI.getDetailList)
 Mock.mock(/\/operationManage\/bannerList/, 'get', getBannerListAPI.getBannerList)
+Mock.mock(/\/operationManage\/editBanner/, 'get', getBannerListAPI.editBanner)
 
 // tools
 Mock.mock(/\/massiveEmail\/emailList/, 'get', getEmailListAPI.getEmailList)

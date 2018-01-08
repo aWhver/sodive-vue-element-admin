@@ -92,6 +92,68 @@ a {
   margin-bottom: 0;
   width: 30%;
 }
+.photoSwipe {
+  display: none;
+  position: fixed;
+  width: 800px;
+  z-index: 99999;
+  top: 15vh;
+  left: 50%;
+  margin-left: -400px;
+  background: #000;
+}
+.photoSwipe-container {
+  width: 400px;
+  height: 400px;
+  margin: 20px auto;
+  position: relative;
+}
+.photoSwipe-container .picture-container div {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  width: 400px;
+  height: 400px;
+  transition: opacity 0.4s linear;
+}
+.photoSwipe-container .picture-container div.active {
+  opacity: 1;
+}
+.photoSwipe-container .picture-container div img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.photoSwipe-container .btn {
+  position: absolute;
+  width: 50px;
+  height: 80px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  text-align: center;
+  line-height: 80px;
+}
+.photoSwipe-container .btn.left-btn {
+  left: -60px;
+}
+.photoSwipe-container .btn.right-btn {
+  right: -60px;
+}
+.photoSwipe .close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+}
+.photoSwipe .svg-icon {
+  width: 2.5em;
+  height: 2.5em;
+  margin-right: 0;
+}
 .fr {
   float: right;
 }

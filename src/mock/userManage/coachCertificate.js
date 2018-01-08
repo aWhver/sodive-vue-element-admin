@@ -17,7 +17,8 @@ for (let i = 0; i < count; i++) {
     'institution': '@string(3, 5)',
     'getCertificateTime': '@datetime(yyyy-MM-dd)',
     'submitCertificateTime': '@datetime(yyyy-MM-dd)',
-    'status|1': '@integer(0, 2)'
+    'status|1': '@integer(0, 2)',
+    'image|2-3': ['@image']
   }))
 }
 

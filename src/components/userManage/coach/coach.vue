@@ -53,11 +53,11 @@
             <template slot-scope="scope">
               <template v-if="scope.row.status === 0 && scope.row.certificate !== '未上传'">
                 <el-button type="info" @click="showDialog(scope.row)">注销</el-button>
-                <el-button type="success" icon="el-icon-picture">查看证书</el-button>
+                <el-button type="success" icon="el-icon-picture" @click="browseCertificate(scope.row)">查看证书</el-button>
               </template>
               <template v-else-if="scope.row.status === 1 && scope.row.certificate !== '未上传'">
                 <el-button type="primary" @click="showDialog(scope.row)">恢复</el-button>
-                <el-button type="success" icon="el-icon-picture">查看证书</el-button>
+                <el-button type="success" icon="el-icon-picture" @click="browseCertificate(scope.row)">查看证书</el-button>
               </template>
               <template v-else-if="scope.row.status === 1">
                 <el-button type="primary" @click="showDialog(scope.row)">恢复</el-button>
@@ -84,6 +84,7 @@
         <el-button @click="logOffReback()" type="primary">确 定</el-button>
       </span>
     </el-dialog>
+    <photo-swipe :imageList="imageList"></photo-swipe>
   </div>
 </template>
 <script>
@@ -104,7 +105,8 @@
           isLogOff: null,
           coachId: null
         },
-        promptMap: ['恢复教练成功', '注销教练成功']
+        promptMap: ['恢复教练成功', '注销教练成功'],
+        imageList: []
       }
     },
     created () {
@@ -137,6 +139,9 @@
             break
           }
         }
+      },
+      browseCertificate (row) {
+        this.imageList = row.image
       },
       searchBtn () {
         this.listQuery.page = 1

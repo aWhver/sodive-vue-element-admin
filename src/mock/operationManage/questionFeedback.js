@@ -12,7 +12,7 @@ for (let i = 0; i < count; i++) {
     'id': '@increment',
     'question': {
       'content': '@ctitle',
-      'images|1-2': ['http://zjtfree.com/wp-content/themes/inigoblog/images/demo/line.png', 'http://f11.baidu.com/it/u=426152179,2698345681&fm=72']
+      'images|1-2': ['@image']
     },
     'userId': '@character("AC123456789")@integer(10000,99999)',
     'email': '@email',

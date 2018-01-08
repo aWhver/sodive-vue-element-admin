@@ -28,14 +28,14 @@
             <template v-if="scope.row.status === 0">
               <el-button type="success" size="mini" @click="pass(scope.row)">通过</el-button>
               <el-button type="danger" size="mini" @click="noPass(scope.row)">不通过</el-button>
-              <el-button type="primary" size="mini" @click="checkPic" icon="el-icon-picture">查看</el-button>
+              <el-button type="primary" size="mini" icon="el-icon-picture" @click="browseCertificate(scope.row)">查看</el-button>
             </template>
             <template v-else-if="scope.row.status === 1">
-              <el-button type="primary" size="mini" @click="checkPic" icon="el-icon-picture">查看</el-button>
+              <el-button type="primary" size="mini" icon="el-icon-picture" @click="browseCertificate(scope.row)">查看</el-button>
             </template>
             <template v-else>
               <el-button type="success" size="mini" @click="pass(scope.row)">通过</el-button>
-              <el-button type="primary" size="mini" @click="checkPic" icon="el-icon-picture">查看</el-button>
+              <el-button type="primary" size="mini" icon="el-icon-picture" @click="browseCertificate(scope.row)">查看</el-button>
             </template>
           </template>
         </el-table-column>
@@ -53,6 +53,7 @@
         <el-button type="primary" @click="sureNoPass()">确定</el-button>
       </span>
     </el-dialog>
+    <photo-swipe :imageList="imageList"></photo-swipe>
   </div>
 </template>
 <script>
@@ -78,7 +79,8 @@
         },
         visible: false,
         selectedUserId: '',
-        reason: ''
+        reason: '',
+        imageList: []
       }
     },
     created () {
@@ -92,8 +94,8 @@
           this.loading = false
         })
       },
-      checkPic () {
-        console.log(1)
+      browseCertificate (row) {
+        this.imageList = row.image
       },
       pass (row) {
         for (const i of this.pending.certificateList) {

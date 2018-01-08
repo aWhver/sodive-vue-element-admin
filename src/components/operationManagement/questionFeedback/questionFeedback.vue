@@ -89,6 +89,7 @@
     },
     created () {
       this.GetQuestionList()
+      this.calculatePictureSize('pictureItem')
     },
     watch: {
       visible (value) {
@@ -141,22 +142,24 @@
       },
       calculatePictureSize (ref) {
         const pictureItems = this.$refs[ref]
+        let oImg
         this.$nextTick(() => {
           if (pictureItems !== undefined) {
             const pictureItemWidth = pictureItems[0].offsetWidth // 图片父级width
             for (let pictureItem of pictureItems) {
+              oImg = pictureItem.querySelector('img')
               let pictureWidth = pictureItem.querySelector('img').offsetWidth
               let pictureHeight = pictureItem.querySelector('img').offsetHeight
               if (pictureWidth >= pictureHeight) {
-                pictureItem.querySelector('img').style.height = pictureItemWidth * pictureHeight / pictureWidth + 'px'
-                pictureItem.querySelector('img').style.width = pictureItemWidth + 'px'
-                pictureItem.querySelector('img').style.marginTop = -(pictureItemWidth * pictureHeight / pictureWidth) / 2 + 'px'
-                pictureItem.querySelector('img').style.marginLeft = -pictureItemWidth / 2 + 'px'
+                oImg.style.height = pictureItemWidth * pictureHeight / pictureWidth + 'px'
+                oImg.style.width = pictureItemWidth + 'px'
+                oImg.style.marginTop = -(pictureItemWidth * pictureHeight / pictureWidth) / 2 + 'px'
+                oImg.style.marginLeft = -pictureItemWidth / 2 + 'px'
               } else {
-                pictureItem.querySelector('img').style.width = pictureItemWidth * pictureWidth / pictureHeight + 'px'
-                pictureItem.querySelector('img').style.height = pictureItemWidth + 'px'
-                pictureItem.querySelector('img').style.marginTop = -pictureItemWidth / 2 + 'px'
-                pictureItem.querySelector('img').style.marginLeft = -(pictureItemWidth * pictureWidth / pictureHeight) / 2 + 'px'
+                oImg.style.width = pictureItemWidth * pictureWidth / pictureHeight + 'px'
+                oImg.style.height = pictureItemWidth + 'px'
+                oImg.style.marginTop = -pictureItemWidth / 2 + 'px'
+                oImg.style.marginLeft = -(pictureItemWidth * pictureWidth / pictureHeight) / 2 + 'px'
               }
             }
           }

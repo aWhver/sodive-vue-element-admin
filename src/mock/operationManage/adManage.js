@@ -2,15 +2,16 @@
  * Created by zhaojuntong on 2018/1/7.
  */
 import Mock from 'mockjs'
-import { paramObj } from 'utils/index'
+import { paramObj, formatTimeCustom } from 'utils/index'
 
 let bannerList = []
 const count = 30
 
 for (let i = 0; i < count; i++) {
   bannerList.push(Mock.mock({
+    'id': '@increment',
     'title': '@ctitle',
-    'banner': '@image(100x65, @color, sodive)',
+    'banner': [{'name': '@string', 'url': '@image(100x65, @color, sodive)'}],
     'url': '@url(http)',
     'effective|1': ['effective', 'ineffective'],
     'type|1': ['user', 'pro'],
@@ -30,6 +31,29 @@ export default {
     return {
       total: mockList.length,
       bannerList: pageList,
+      code: 2
+    }
+  },
+  editBanner: config => {
+    const data = JSON.parse(config.body)
+    if (data.id) {
+      bannerList.forEach((item, index) => {
+        if (item.id === data.id) {
+          bannerList.splice(index, 1, data)
+        }
+      })
+    } else {
+      bannerList.unshift(Mock.mock({
+        'id': '@increment',
+        'title': data.title,
+        'banner': data.banner,
+        'url': data.url,
+        'effective': data.effective,
+        'type': data.type,
+        'createTime': formatTimeCustom(new Date(), '{y}-{m}-{d}')
+      }))
+    }
+    return {
       code: 2
     }
   }

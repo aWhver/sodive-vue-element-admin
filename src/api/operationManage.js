@@ -114,3 +114,11 @@ export function getBannerList (listQuery) {
     params: listQuery
   })
 }
+
+export function editBanner (bannerForm) {
+  return request({
+    url: 'operationManage/editBanner',
+    method: 'get',
+    data: bannerForm
+  })
+}
