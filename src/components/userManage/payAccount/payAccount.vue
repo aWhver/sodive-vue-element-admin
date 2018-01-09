@@ -12,6 +12,11 @@
           <el-option v-for="item in payTypeMap" :key="item.payType" :value="item.payType" :label="item.name"></el-option>
         </el-select>
       </div>
+      <template slot="excel">
+        <div class="filter-item">
+          <el-button type="primary" icon="el-icon-download" :loading="downloadLoading" @click="excelExport">Excel</el-button>
+        </div>
+      </template>
     </certificate-filter>
     <el-main>
       <el-table :data="list" border style="text-align: center" v-loading="loading" element-loading-text="小主,我需要时间...">
@@ -65,7 +70,8 @@
         listQuery: {page: 1, payType: null, userId: null, name: null},
         payTypeMap: payTypeMap,
         statusMap: ['该用户支付账号已恢复正常', '已成功注销该账户'],
-        loading: true
+        loading: true,
+        downloadLoading: false
       }
     },
     created () {
@@ -91,6 +97,28 @@
           type: 'success',
           duration: 2000
         })
+      },
+      excelExport () {
+        this.downloadLoading = true
+        import('@/vendor/Export2Excel').then(excel => {
+          const tHeader = ['ID', '用户类型', '支付类型', '账号', '姓名', '创建时间', '修改时间', '状态']
+          const filterVal = ['userId', 'userType', 'payType', 'account', 'name', 'createTime', 'modifyTime', 'status']
+          const data = this.formatJson(filterVal, this.list)
+          excel.export_json_to_excel(tHeader, data, 'payAccount-list')
+          this.downloadLoading = false
+        })
+      },
+      formatJson (filterVal, jsonData) {
+        const statusMap = ['正常', '失效']
+        return jsonData.map(v => filterVal.map(j => {
+          if (j === 'payType') {
+            return payTypeObj[v[j]]
+          } else if (j === 'status') {
+            return statusMap[v[j]]
+          } else {
+            return v[j]
+          }
+        }))
       },
       acceptQuery (query) {
         this.listQuery = query.listQuery

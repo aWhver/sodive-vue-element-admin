@@ -133,6 +133,13 @@
         this.canEditInfo.receiveAddress = row.receiveAddress
         this.canEditInfo.goodsPic = row.goodsPic
         this.canEditInfo.id = row.id
+        if (row.logisticsStatus !== 0) {
+          this.canEditInfo.logisticsNo = row.logisticsNo
+          this.canEditInfo.logisticsCompany = row.logisticsCompany
+        } else {
+          this.canEditInfo.logisticsNo = ''
+          this.canEditInfo.logisticsCompany = ''
+        }
       },
       modifyStatus () {
         if (this.canEditInfo.logisticsNo === '' && this.canEditInfo.logisticsCompany === '') {

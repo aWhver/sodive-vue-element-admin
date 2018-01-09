@@ -12,6 +12,14 @@
       <div class="filter-item">
         <el-date-picker type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" v-model="dateRange"></el-date-picker>
       </div>
+      <template slot="excel">
+        <div class="filter-item">
+          <el-input v-model="tableList" placeholder="输入excel名字,默认share-list" clearable></el-input>
+        </div>
+        <div class="filter-item">
+          <el-button type="primary" :loading="downloadLoading" @click="excelExport" icon="el-icon-download">Excel</el-button>
+        </div>
+      </template>
     </certificate-filter>
     <el-main>
       <el-table :data="list" border style="text-align: center" v-loading="loading" element-loading-text="小主,我需要时间...">
@@ -34,6 +42,12 @@
 </template>
 <script>
   import { getDetailList } from 'api/operationManage'
+  const channelMap = {
+    facebook: 'facebook',
+    twitter: 'twitter',
+    wechatMoments: '微信朋友圈',
+    wechat: '微信'
+  }
   export default {
     data () {
       return {
@@ -47,7 +61,9 @@
           {key: 'twitter', channel: 'twitter'},
           {key: 'wechatMoments', channel: '微信朋友圈'},
           {key: 'wechat', channel: '微信'}
-        ]
+        ],
+        downloadLoading: false,
+        tableList: ''
       }
     },
     created () { this.GetDetailList() },
@@ -60,18 +76,32 @@
           this.loading = false
         })
       },
+      excelExport () {
+        this.downloadLoading = false
+        import('@/vendor/Export2Excel').then(excel => {
+          const tHeader = ['分享人ID', '昵称', '分享类型', '累计分享次数', '累计浏览次数', '分享渠道']
+          const filterVal = ['coachId', 'nickName', 'shareType', 'shareNum', 'browseNum', 'shareChannel']
+          const data = this.formatJson(filterVal, this.list)
+          if (this.tableList === '') this.tableList = 'share-list'
+          excel.export_json_to_excel(tHeader, data, this.tableList)
+          this.downloadLoading = false
+        })
+      },
+      formatJson (filterVal, dataJson) {
+        return dataJson.map(v => filterVal.map(j => {
+          if (j === 'shareChannel') {
+            return channelMap[v[j]]
+          } else {
+            return v[j]
+          }
+        }))
+      },
       acceptQuery (query) {
         this.listQuery = query.listQuery
       }
     },
     filters: {
       channelFilter (channel) {
-        const channelMap = {
-          facebook: 'facebook',
-          twitter: 'twitter',
-          wechatMoments: '微信朋友圈',
-          wechat: '微信'
-        }
         return channelMap[channel]
       }
     }

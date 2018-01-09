@@ -7,6 +7,11 @@
       <div class="filter-item">
         <el-input placeholder="商品名" v-model="listQuery.goodsName" clearable></el-input>
       </div>
+      <template slot="excel">
+        <div class="filter-item">
+          <el-button type="primary" icon="el-icon-download" :loading="downloadLoading" @click="excelExport">Excel</el-button>
+        </div>
+      </template>
       <div style="display: inline-block;float: right;">
         <el-button @click="onShelf">上架</el-button>
         <el-button @click="offShelf">下架</el-button>
@@ -58,7 +63,8 @@ export default {
       list: null,
       total: 1,
       listQuery: {page: 1, goodsId: null, goodsName: null},
-      loading: true
+      loading: true,
+      downloadLoading: false
     }
   },
   created () { this.GetExchangeList() },
@@ -103,6 +109,26 @@ export default {
           duration: 2000
         })
       }
+    },
+    excelExport () {
+      this.downloadLoading = false
+      import('@/vendor/Export2Excel').then(excel => {
+        const tHeader = ['商品ID', '商品名称', '品牌', '价格', '创建时间', '更新时间', '状态']
+        const filterVal = ['goodsId', 'goodsName', 'brand', 'price', 'createTime', 'updateTime', 'status']
+        const data = this.formatJson(filterVal, this.list)
+        excel.export_json_to_excel(tHeader, data, 'exchange-goods-list')
+        this.downloadLoading = false
+      })
+    },
+    formatJson (filterVal, dataJson) {
+      const statusMap = ['上架', '下架']
+      return dataJson.map(v => filterVal.map(j => {
+        if (j === 'status') {
+          return statusMap[v[j]]
+        } else {
+          return v[j]
+        }
+      }))
     },
     acceptQuery (query) {
       this.listQuery = query.listQuery

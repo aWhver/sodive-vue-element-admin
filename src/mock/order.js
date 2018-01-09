@@ -20,7 +20,9 @@ for (let i = 0; i < count; i++) {
     'goodsPic': "@image(80 x 80, @color, 'sodive')",
     'receiver': '@cname',
     'receiveAddress': '@province',
-    'logisticsStatus': '@integer(0, 4)' /* 0 => 无物流, 1 =>  待发货, 2 => 配送中, 3 => 已签收, 4 => 拒签收  */
+    'logisticsStatus': '@integer(0, 4)', /* 0 => 无物流, 1 =>  待发货, 2 => 配送中, 3 => 已签收, 4 => 拒签收  */
+    'logisticsNo': '2018@integer(1000000, 9999999)',
+    'logisticsCompany|1': ['顺丰', '申通', '圆通', '中通', 'EMS']
   }))
 }
 

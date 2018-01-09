@@ -36,7 +36,6 @@ const webpackConfig = merge(baseWebpackConfig, {
     }),
     new UglifyJsPlugin({
       uglifyOptions: {
-        ecma: 6,
         compress: {
           warnings: false
         }

@@ -73,7 +73,7 @@ export const asyncRouterMap = [
         path: 'payAccount',
         name: 'payAccount',
         component: _import('userManage/payAccount/payAccount'),
-        meta: {title: '支付账号', keepalive: true}
+        meta: {title: '提现账号', keepalive: true}
       }
     ]
   },
@@ -198,13 +198,13 @@ export const asyncRouterMap = [
         name: 'adManage',
         component: _import('operationManagement/adManage/adManage'),
         meta: {title: '广告位管理', keepalive: true}
-      },
-      {
+      }
+      /* {
         path: 'duihuanquan',
         name: 'duihuanquan',
         component: _import('operationManagement/duihuanquan/duihuanquan'),
         meta: {title: '兑换券'}
-      }
+      } */
     ]
   },
   {

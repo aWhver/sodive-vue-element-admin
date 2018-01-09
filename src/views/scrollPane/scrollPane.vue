@@ -37,7 +37,7 @@
         const scrollContainerWidth = this.$refs.scrollContainer.offsetWidth
         const targetWidth = target.offsetWidth
         const targetLeft = target.offsetLeft
-        if (targetLeft < ((scrollWrapperWidth - targetWidth) / 2)) {
+        if (targetLeft < (scrollWrapperWidth - targetWidth)) {
           // tag in the left
           this.left = 0
         } else {

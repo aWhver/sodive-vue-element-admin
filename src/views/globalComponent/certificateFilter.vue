@@ -10,6 +10,7 @@
       <div class="filter-item">
         <el-button type="primary" icon="el-icon-search" @click="searchBtn()">搜索</el-button>
       </div>
+      <slot name="excel"></slot>
     </div>
   </el-header>
 </template>

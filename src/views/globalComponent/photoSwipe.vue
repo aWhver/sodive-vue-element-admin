@@ -23,10 +23,6 @@
     props: {
       imageList: {
         type: Array
-      },
-      visibleVal: {
-        type: Boolean,
-        default: false
       }
     },
     created () { this.calculatePictureSize('pictureItem1') },
@@ -37,6 +33,7 @@
           oPhotoSwipe.style.display = 'block'
           this.calculatePictureSize('pictureItem1')
         } else {
+          this.imageList = []
           oPhotoSwipe.style.display = 'none'
         }
       }
