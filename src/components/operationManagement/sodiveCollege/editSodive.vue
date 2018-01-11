@@ -115,7 +115,7 @@
       width: 800px;
       margin: auto;
       &-item {
-        display: block;
+        display: block !important;
         &__content {
            width: 85%;
         }

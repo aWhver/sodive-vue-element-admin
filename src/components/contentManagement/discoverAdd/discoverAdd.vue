@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <el-form inline :model="coverForm" ref="coverForm" :rules="coverRules" :label-position="'right'">
+  <div class="discover-add-container">
+    <el-form inline :model="coverForm" ref="coverForm" :rules="coverRules" :label-position="'right'" label-width="120px">
       <el-form-item label="发布者ID" prop="userId">
         <el-input v-model="coverForm.userId" clearable></el-input>
       </el-form-item>
@@ -10,7 +10,7 @@
           <div slot="tip" class="el-upload__tip">图片小超过2M</div>
         </el-upload>
       </el-form-item>
-      <el-form-item label="图片位置信息" class="imageInfo" required>
+      <el-form-item label="图片位置信息" class="imageInfo" required style="display: block">
         <el-select v-model="country" clearable>
           <el-option v-for="item in countryMap" :label="item.name" :value="item.key" :key="item.key"></el-option>
         </el-select>
@@ -90,17 +90,20 @@
     }
   }
 </script>
-<style lang="less" scope>
-  .el-form--inline {
-    width: 500px;
-    margin: auto;
-    .imageInfo {
-      .el-input {
-        width: 300px;
-        margin: 15px 0 0;
-        display: block;
+<style lang="less">
+  .discover-add-container {
+    .el-form--inline {
+      width: 500px;
+      margin: auto;
+      .imageInfo {
+        display: block !important;
+        .el-input {
+          width: 300px;
+          margin: 15px 0 0;
+          display: block;
+        }
+        .el-form-item__content .el-form-item { margin-top: 15px; }
       }
-      .el-form-item__content .el-form-item { margin-top: 15px; }
     }
   }
 </style>

@@ -34,6 +34,7 @@
           this.calculatePictureSize('pictureItem1')
         } else {
           this.imageList = []
+          this.index = 0
           oPhotoSwipe.style.display = 'none'
         }
       }
@@ -81,6 +82,7 @@
       closePhotoSwipe () {
         const oPhotoSwipe = document.getElementsByClassName('photoSwipe')[0]
         oPhotoSwipe.style.display = 'none'
+        this.index = 0
       }
     },
     computed: {

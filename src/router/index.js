@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
-/* 开发环境不使用懒加载 */
+/* 开发环境不使用懒加载
 function _import (file) {
   return require('@/components/' + file + '.vue').default
 }
-// import Index from '@/components/sidebarItem.vue'
+import Index from '@/components/sidebarItem.vue' */
 
+import Login from '../components/login/index'
+import Layout from '../components/layout/layout'
+const _import = require('./_import_' + process.env.NODE_ENV)
 Vue.use(Router)
 
 /**
@@ -16,11 +18,11 @@ Vue.use(Router)
  */
 
 export const constantRouterMap = [
-  {path: '/login', component: _import('login/index'), hidden: true},
+  {path: '/login', component: Login, hidden: true},
   { path: '/404', component: _import('errorPage/404'), hidden: true },
   {
     path: '',
-    component: _import('layout/layout'),
+    component: Layout,
     redirect: '/index',
     children: [{path: 'index', name: 'index', component: _import('index'), meta: {title: '首页', icon: 'shouye'}}]
   }
@@ -35,7 +37,7 @@ export const asyncRouterMap = [
   {
     path: '/userManage',
     name: 'userManage',
-    component: _import('layout/layout'),
+    component: Layout,
     meta: {title: '用户管理', icon: 'people'},
     redirect: '/userManage/agent',
     children: [
@@ -79,7 +81,7 @@ export const asyncRouterMap = [
   },
   {
     path: '/order',
-    component: _import('layout/layout'),
+    component: Layout,
     children: [{
       path: 'index',
       name: 'order',
@@ -90,7 +92,7 @@ export const asyncRouterMap = [
   {
     path: '/exchange',
     name: 'exchange',
-    component: _import('layout/layout'),
+    component: Layout,
     meta: {title: '兑换券商城管理', icon: 'duihuanquan'},
     redirect: '/exchange/list',
     children: [
@@ -116,7 +118,7 @@ export const asyncRouterMap = [
   },
   {
     path: '/contentManage',
-    component: _import('layout/layout'),
+    component: Layout,
     name: 'contentManage',
     meta: {title: '内容管理', icon: 'neirongguanli'},
     redirect: '/contentManage/logger',
@@ -150,7 +152,7 @@ export const asyncRouterMap = [
   {
     path: '/operationManagement',
     name: 'operationManagement',
-    component: _import('layout/layout'),
+    component: Layout,
     meta: {title: '运营管理', icon: 'yunyingguanli'},
     redirect: 'operationManagement/taskPending',
     children: [
@@ -210,7 +212,7 @@ export const asyncRouterMap = [
   {
     path: '/tools',
     name: 'tools',
-    component: _import('layout/layout'),
+    component: Layout,
     meta: {title: '运营工具', icon: 'tools'},
     redirect: 'tools/massEmail',
     children: [
@@ -243,7 +245,7 @@ export const asyncRouterMap = [
   {
     path: '/system',
     name: 'system',
-    component: _import('layout/layout'),
+    component: Layout,
     meta: {title: '系统配置', icon: 'xitong'},
     redirect: 'system/urlManage',
     children: [

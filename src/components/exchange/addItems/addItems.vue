@@ -129,7 +129,7 @@
 </script>
 <style lang="less" scoped>
   .listPic {
-    display: block;
+    display: block !important;
   }
   .form-inline .el-form-item__content {
     .form-inline-item {

@@ -146,7 +146,7 @@
     }
   }
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .el-dialog .content {
   .el-input { width: 500px }
   .el-select .el-input {
